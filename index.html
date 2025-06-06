@@ -20,6 +20,9 @@
                             '600': '#FFD000',
                             '700': '#FFC300'
                         }
+                    },
+                    animation: {
+                        'spin-slow': 'spin 2s linear infinite',
                     }
                 }
             }
@@ -63,10 +66,10 @@
 
             <nav id="main-nav" class="hidden md:block absolute md:static top-full left-0 right-0 bg-white md:bg-transparent shadow-lg md:shadow-none py-4 md:py-0 w-full md:w-auto">
                 <ul class="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0 text-center md:text-left">
-                    <li><a href="index.html#donate-form" class="block text-gray-600 hover:text-indigo-600 font-bold px-4 py-2 rounded-md bg-indigo-50 hover:bg-indigo-100 transition-colors">Donate</a></li>
-                    <li><a href="index.html#about" class="block text-gray-600 hover:text-indigo-600 nav-link py-2 px-4">About Us</a></li>
-                    <li><a href="index.html#why-donate" class="block text-gray-600 hover:text-indigo-600 nav-link py-2 px-4">Why Donate?</a></li>
-                    <li><a href="contact.html" class="block text-gray-600 hover:text-indigo-600 nav-link py-2 px-4">Contact</a></li>
+                    <li><a href="#donate-form" class="block text-gray-600 hover:text-indigo-600 font-bold px-4 py-2 rounded-md bg-indigo-50 hover:bg-indigo-100 transition-colors">Donate</a></li>
+                    <li><a href="#about" class="block text-gray-600 hover:text-indigo-600 nav-link py-2 px-4">About Us</a></li>
+                    <li><a href="#why-donate" class="block text-gray-600 hover:text-indigo-600 nav-link py-2 px-4">Why Donate?</a></li>
+                    <li><a href="#contact" class="block text-gray-600 hover:text-indigo-600 nav-link py-2 px-4">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -121,20 +124,21 @@
                             <label for="recurring" class="ml-2 block text-sm text-gray-900">Make this a monthly donation</label>
                         </div>
 
-                        <!-- Payment Method Selection (will be shown after clicking Proceed to Payment) -->
+                        <!-- Payment Method Selection (shown after clicking Proceed to Payment) -->
                         <div id="paymentMethods" class="hidden pt-4 border-t border-gray-200">
                             <h3 class="text-lg font-medium text-gray-900 mb-3">Select Payment Method</h3>
                             <div class="grid grid-cols-1 gap-3 mb-4">
-                                <button type="button" id="upiPaymentBtn" class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center">
-                                    <i class="fas fa-mobile-alt mr-2"></i>
+                                <button type="button" id="upiPaymentBtn" class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center space-x-2">
+                                    <i class="fab fa-google-pay text-lg text-blue-600"></i>
+                                    <i class="fab fa-amazon-pay text-lg text-orange-500"></i>
                                     <span>UPI Payment</span>
                                 </button>
-                                <button type="button" id="qrPaymentBtn" class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center">
-                                    <i class="fas fa-qrcode mr-2"></i>
+                                <button type="button" id="qrPaymentBtn" class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center space-x-2">
+                                    <i class="fas fa-qrcode text-lg text-indigo-600"></i>
                                     <span>QR Code</span>
                                 </button>
-                                <button type="button" id="coffeePaymentBtn" class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center bg-coffee-500 hover:bg-coffee-600 text-gray-900 font-medium">
-                                    <i class="fas fa-coffee mr-2"></i>
+                                <button type="button" id="coffeePaymentBtn" class="p-3 border border-coffee-500 rounded-lg flex items-center justify-center space-x-2 bg-coffee-500 hover:bg-coffee-600 text-white font-medium transition-colors">
+                                    <i class="fas fa-coffee text-lg"></i>
                                     <span>Buy Me a Coffee</span>
                                 </button>
                             </div>
@@ -166,16 +170,16 @@
                     <!-- Buy Me a Coffee Modal -->
                     <div id="coffeeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
                         <div class="bg-white p-6 rounded-xl max-w-sm mx-4 text-center">
-                            <h3 class="text-xl font-bold mb-4">Buy Me a Coffee</h3>
-                            <div class="mb-4">
-                                <img src="https://i.ibb.co/0nN8mXx/buy-me-a-coffee.png" alt="Buy Me a Coffee" class="mx-auto h-32">
+                            <div class="flex justify-center mb-4">
+                                <i class="fas fa-coffee text-5xl text-coffee-500"></i>
                             </div>
-                            <p class="text-gray-600 mb-4">Thank you for your support! You'll be redirected to our Buy Me a Coffee page.</p>
+                            <h3 class="text-xl font-bold mb-2">Support with Coffee</h3>
+                            <p class="text-gray-600 mb-4">You're donating ₹<span id="coffeeAmount">100</span> - equivalent to <span id="coffeeCups">2</span> coffees!</p>
                             <div class="flex justify-center space-x-4">
-                                <button id="confirmCoffee" class="bg-coffee-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-coffee-600 transition font-medium">
-                                    Continue
+                                <button id="confirmCoffee" class="bg-coffee-500 text-white px-6 py-2 rounded-lg hover:bg-coffee-600 transition font-medium">
+                                    Confirm Payment
                                 </button>
-                                <button id="cancelCoffee" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition">
+                                <button id="cancelCoffee" class="bg-gray-200 text-gray-800 px-6 py-2 rounded-lg hover:bg-gray-300 transition">
                                     Cancel
                                 </button>
                             </div>
@@ -222,13 +226,39 @@
                 </div>
             </div>
         </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 px-4 bg-gray-50">
+            <div class="container-max-w">
+                <h2 class="text-3xl font-bold text-gray-900 text-center mb-10">Contact Us</h2>
+                <div class="bg-white p-8 rounded-lg shadow-md max-w-2xl mx-auto">
+                    <form class="space-y-6">
+                        <div>
+                            <label for="contact-name" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                            <input type="text" id="contact-name" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                        </div>
+                        <div>
+                            <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">Your Email</label>
+                            <input type="email" id="contact-email" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                        </div>
+                        <div>
+                            <label for="contact-message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                            <textarea id="contact-message" rows="4" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-10 px-4">
         <div class="container-max-w grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-                <a href="index.html" class="flex items-center space-x-2 mb-3">
+                <a href="#" class="flex items-center space-x-2 mb-3">
                     <img src="https://i.ibb.co/VWD3vh8S/20250605-175233.png" alt="AgoraNet Logo" class="h-8 w-8 rounded-full">
                     <span class="text-xl font-bold">AgoraNet</span>
                 </a>
@@ -239,18 +269,18 @@
             <div>
                 <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
                 <ul class="space-y-2">
-                    <li><a href="index.html#about" class="text-gray-400 hover:text-indigo-400">About Us</a></li>
-                    <li><a href="index.html#why-donate" class="text-gray-400 hover:text-indigo-400">Why Donate?</a></li>
-                    <li><a href="index.html#donate-form" class="text-gray-400 hover:text-indigo-400">Donate Now</a></li>
+                    <li><a href="#about" class="text-gray-400 hover:text-indigo-400">About Us</a></li>
+                    <li><a href="#why-donate" class="text-gray-400 hover:text-indigo-400">Why Donate?</a></li>
+                    <li><a href="#donate-form" class="text-gray-400 hover:text-indigo-400">Donate Now</a></li>
                 </ul>
             </div>
 
             <div>
                 <h3 class="text-lg font-semibold mb-4">Legal</h3>
                 <ul class="space-y-2">
-                    <li><a href="Terms-and-Conditions.html" class="text-gray-400 hover:text-indigo-400">Terms & Conditions</a></li>
-                    <li><a href="Refund-and-Cancellation-Policy.html" class="text-gray-400 hover:text-indigo-400">Refund Policy</a></li>
-                    <li><a href="contact.html" class="text-gray-400 hover:text-indigo-400">Contact Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-indigo-400">Terms & Conditions</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-indigo-400">Refund Policy</a></li>
+                    <li><a href="#contact" class="text-gray-400 hover:text-indigo-400">Contact Us</a></li>
                 </ul>
             </div>
 
@@ -278,6 +308,17 @@
                 mainNav.classList.toggle('hidden');
             });
 
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
             // Donation amount presets
             const amountInput = document.getElementById('amount');
             document.querySelectorAll('.donation-preset').forEach(button => {
@@ -286,13 +327,18 @@
                 });
             });
 
-            // UPI Payment Functionality
+            // Payment elements
             const upiPaymentBtn = document.getElementById('upiPaymentBtn');
             const qrPaymentBtn = document.getElementById('qrPaymentBtn');
+            const coffeePaymentBtn = document.getElementById('coffeePaymentBtn');
             const qrCodeModal = document.getElementById('qrCodeModal');
+            const coffeeModal = document.getElementById('coffeeModal');
             const closeQrModal = document.getElementById('closeQrModal');
             const copyUpiId = document.getElementById('copyUpiId');
+            const confirmCoffee = document.getElementById('confirmCoffee');
+            const cancelCoffee = document.getElementById('cancelCoffee');
             const donationForm = document.getElementById('donationForm');
+            const paymentMethods = document.getElementById('paymentMethods');
             const statusMessage = document.getElementById('statusMessage');
 
             // Check if user is on mobile
@@ -304,6 +350,62 @@
                 return `upi://pay?pa=yourname@bank&pn=AgoraNet&am=${amount}&cu=INR&tn=Donation to AgoraNet by ${encodeURIComponent(name)}&tid=${tid}`;
             }
 
+            // Show processing animation
+            function showProcessingAnimation() {
+                const processingHTML = `
+                    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div class="bg-white p-6 rounded-xl max-w-sm mx-4 text-center">
+                            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+                            <h3 class="text-xl font-bold mb-2">Processing Payment</h3>
+                            <p class="text-gray-600">Please wait while we process your donation...</p>
+                        </div>
+                    </div>
+                `;
+                
+                const processingDiv = document.createElement('div');
+                processingDiv.innerHTML = processingHTML;
+                document.body.appendChild(processingDiv);
+                
+                return processingDiv;
+            }
+
+            // Form submission - show payment methods
+            donationForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const amount = parseInt(amountInput.value);
+                const email = document.getElementById('email').value;
+                
+                // Validate amount
+                if (isNaN(amount) {
+                    showStatus('Please enter a valid amount', 'error');
+                    amountInput.focus();
+                    return;
+                }
+                
+                if (amount < 10) {
+                    showStatus('Minimum donation is ₹10', 'error');
+                    amountInput.focus();
+                    return;
+                }
+                
+                // Validate email
+                if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    showStatus('Please enter a valid email address', 'error');
+                    document.getElementById('email').focus();
+                    return;
+                }
+                
+                // Hide any existing status message
+                statusMessage.classList.add('hidden');
+                
+                // Show payment methods
+                paymentMethods.classList.remove('hidden');
+                
+                // Scroll to payment methods
+                paymentMethods.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+
             // UPI Payment Button
             upiPaymentBtn.addEventListener('click', () => {
                 const amount = parseInt(amountInput.value);
@@ -314,18 +416,23 @@
                     return;
                 }
 
+                const processingDiv = showProcessingAnimation();
                 const upiLink = generateUpiLink(amount, name);
                 
-                if (isMobile) {
-                    window.location.href = upiLink;
-                    setTimeout(() => {
-                        if (!document.hidden) {
-                            showStatus('No UPI app detected. Please try QR code instead.', 'info');
-                        }
-                    }, 500);
-                } else {
-                    showStatus('Please use QR code payment on desktop', 'info');
-                }
+                setTimeout(() => {
+                    processingDiv.remove();
+                    
+                    if (isMobile) {
+                        window.location.href = upiLink;
+                        setTimeout(() => {
+                            if (!document.hidden) {
+                                showStatus('No UPI app detected. Please try QR code instead.', 'info');
+                            }
+                        }, 500);
+                    } else {
+                        showStatus('Please use QR code payment on desktop', 'info');
+                    }
+                }, 1500);
             });
 
             // QR Code Payment Button
@@ -340,9 +447,52 @@
                 qrCodeModal.classList.remove('hidden');
             });
 
+            // Buy Me a Coffee Button
+            coffeePaymentBtn.addEventListener('click', () => {
+                const amount = parseInt(amountInput.value);
+                if (amount < 10) {
+                    showStatus('Minimum donation is ₹10', 'error');
+                    return;
+                }
+                
+                // Calculate coffee cups (assuming ₹50 per coffee)
+                const coffeeCups = Math.max(1, Math.floor(amount / 50));
+                
+                // Update modal with current amount
+                document.getElementById('coffeeAmount').textContent = amount;
+                document.getElementById('coffeeCups').textContent = coffeeCups;
+                
+                coffeeModal.classList.remove('hidden');
+            });
+
             // Close QR Modal
             closeQrModal.addEventListener('click', () => {
                 qrCodeModal.classList.add('hidden');
+            });
+
+            // Confirm Coffee Payment
+            confirmCoffee.addEventListener('click', () => {
+                const processingDiv = showProcessingAnimation();
+                const amount = parseInt(amountInput.value);
+                const name = document.getElementById('name').value.trim() || 'Anonymous';
+                const isRecurring = document.getElementById('recurring').checked;
+                
+                setTimeout(() => {
+                    processingDiv.remove();
+                    showStatus(`Thank you for your coffee donation of ₹${amount}! ${isRecurring ? '(Monthly)' : ''}`, 'success');
+                    coffeeModal.classList.add('hidden');
+                    
+                    if (!isRecurring) {
+                        donationForm.reset();
+                        amountInput.value = 100;
+                        paymentMethods.classList.add('hidden');
+                    }
+                }, 2000);
+            });
+
+            // Cancel Coffee Payment
+            cancelCoffee.addEventListener('click', () => {
+                coffeeModal.classList.add('hidden');
             });
 
             // Copy UPI ID
@@ -355,12 +505,6 @@
                             copyUpiId.innerHTML = originalIcon;
                         }, 2000);
                     });
-            });
-
-            // Form submission
-            donationForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                showStatus('Please select a payment method above', 'info');
             });
 
             // Show status message
@@ -379,8 +523,12 @@
                         statusMessage.classList.add('text-indigo-600');
                         break;
                 }
+                
+                // Scroll to status message
+                statusMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         });
     </script>
+ 
 </body>
 </html>
