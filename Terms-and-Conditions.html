@@ -1,192 +1,113 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Support AgoraNet - Digital Empowerment Platform</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            indigo: {
-              '50': '#EEF2FF', '100': '#E0E7FF', '200': '#C7D2FE', '300': '#A5B4FC',
-              '400': '#818CF8', '500': '#6366F1', '600': '#4F46E5', '700': '#4338CA',
-              '800': '#3730A3', '900': '#312E81', '950': '#1E1B4B',
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support AgoraNet - Make a Donation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind CSS configuration (optional, for custom theme or extending defaults)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: { // Match the default Tailwind indigo for consistency
+                            '50': '#EEF2FF', '100': '#E0E7FF', '200': '#C7D2FE', '300': '#A5B4FC',
+                            '400': '#818CF8', '500': '#6366F1', '600': '#4F46E5', '700': '#4338CA',
+                            '800': '#3730A3', '900': '#312E81', '950': '#1E1B4B',
+                        }
+                    }
+                }
             }
-          }
         }
-      }
-    }
-  </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <style>
-    .container-max-w {
-      max-width: 90%;
-      margin: 0 auto;
-    }
-    @media (min-width: 768px) {
-      .container-max-w {
-        max-width: 1200px;
-      }
-    }
-    img {
-      max-width: 100%;
-      display: inline-block;
-    }
-    .qr-code-container {
-      transition: all 0.3s ease;
-    }
-    .qr-code-container:hover {
-      transform: scale(1.05);
-    }
-  </style>
+    </script>
+    <style>
+        /* Custom styles to ensure basic responsiveness and clarity */
+        .container-max-w {
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .container-max-w {
+                max-width: 800px; /* Slightly wider for content sections */
+            }
+        }
+        /* Style for active navigation link (optional) */
+        .nav-link.active {
+            @apply text-indigo-600 font-semibold;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+<body class="bg-gray-100 font-sans antialiased text-gray-800">
 
-<body class="bg-gray-100 font-sans antialiased text-gray-800 flex flex-col min-h-screen">
-  <!-- Header -->
-  <header class="bg-white shadow-md py-4 sticky top-0 z-50">
-    <div class="container-max-w flex justify-between items-center relative">
-      <a href="index.html" class="flex items-center space-x-2">
-        <img src="https://i.ibb.co/VWD3vh8S/20250605-175233.png" alt="AgoraNet Logo" class="h-10 w-10 rounded-full">
-        <span class="text-2xl font-bold text-gray-900">AgoraNet</span>
-      </a>
-      <button id="mobile-menu-button" class="md:hidden p-2 text-gray-700 hover:text-indigo-600 focus:outline-none">
-        <i class="fas fa-bars text-xl"></i>
-      </button>
-      <nav id="main-nav" class="hidden md:block absolute md:static top-full left-0 right-0 bg-white md:bg-transparent py-4 md:py-0 w-full md:w-auto">
-        <ul class="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0 text-center md:text-left">
-          <li><a href="#donate-form" class="block text-gray-600 hover:text-indigo-600 font-bold">Donate</a></li>
-          <li><a href="#about" class="block text-gray-600 hover:text-indigo-600">About Us</a></li>
-          <li><a href="#why-donate" class="block text-gray-600 hover:text-indigo-600">Why Donate?</a></li>
-          <li><a href="contact.html" class="block text-gray-600 hover:text-indigo-600">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+    <header class="bg-white shadow-md py-4 sticky top-0 z-50">
+        <div class="container-max-w flex justify-between items-center relative">
+            <a href="index.html#hero" class="flex items-center space-x-2">
+                <img src="https://i.ibb.co/VWD3vh8S/20250605-175233.png" alt="AgoraNet Logo" class="h-10 w-10 rounded-full">
+                <span class="text-2xl font-bold text-gray-900">AgoraNet</span>
+            </a>
 
-  <!-- Main -->
-  <main class="flex-grow">
-    <!-- Hero -->
-    <section id="hero" class="bg-indigo-600 text-white py-20 text-center">
-      <div class="container-max-w">
-        <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Empowering Digital Connections</h1>
-        <p class="text-lg mb-8">Support AgoraNet in creating open, accessible, and inclusive digital spaces for everyone.</p>
-        <a href="#donate-form" class="bg-white text-indigo-700 px-8 py-3 rounded-full font-semibold hover:bg-indigo-100 shadow-lg">Support Our Mission</a>
-      </div>
+            <button id="mobile-menu-button" class="md:hidden p-2 text-gray-700 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md" aria-label="Toggle navigation">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+
+            <nav id="main-nav" class="hidden md:block absolute md:static top-full left-0 right-0 bg-white md:bg-transparent shadow-lg md:shadow-none py-4 md:py-0 w-full md:w-auto">
+                <ul class="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0 text-center md:text-left">
+                    <li><a href="index.html#donate-form" class="block text-gray-600 hover:text-indigo-600 font-bold px-4 py-2 rounded-md bg-indigo-50 hover:bg-indigo-100 transition-colors">Donate</a></li>
+                    <li><a href="index.html#about" class="block text-gray-600 hover:text-indigo-600 nav-link py-2 px-4">About Us</a></li>
+                    <li><a href="index.html#why-donate" class="block text-gray-600 hover:text-indigo-600 nav-link py-2 px-4">Why Donate?</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="about" class="py-16 px-4 bg-gray-50">
+        <div class="container-max-w text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Contact Us</h2>
+            <p class="text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto">
+                
+        By accessing this webpage, you are agreeing to be bound by these Terms and Conditions (&ldquo;Terms&quot;) in a legally binding agreement between us (&ldquo;Merchant&rdquo;or&ldquo;us&rdquo; or &ldquo;we&rdquo;or&ldquo;our&rdquo; ) and the User (&ldquo;you&rdquo; or &ldquo;your&rdquo;). Please read these Terms carefully before accessing or using the Website. If you do not agree to the Terms, you may not access the Platform.We reserve the right to update and change the Terms and Conditions by posting updates and changes to the Platform. You are advised to check the Terms and Conditions from time to time for any updates or changes that may impact you. If at any point such amendments are not acceptable to you, we advise you to cease using the Platform at such time.   ELIGIBILITY You hereby represent and warrant that you have the right, power, and authority to agree to the Terms, to become a party to a legally binding agreement and to perform your obligations here under.  DEFINITIONS &ldquo;Payment Instrument&rdquo; includes credit card, debit card, bank account, prepaid payment instrument, Unified Payment Interface (UPI), Immediate Payment Service (IMPS) or any other methods of payments which shall be developed or added or deployed by banks and financial institutions from time to time. &ldquo;Platform&rdquo; refers to the website or platform where the Merchant offers its products or services and where the Transaction may be initiated. &ldquo;Transaction&rdquo; shall refer to the order or request placed by the User with the Merchant to purchase the products and/or services listed on the Platform by paying the Transaction Amount to the Merchant; &ldquo;Transaction Amount&rdquo; shall mean the amount paid by the User in connection with a Transaction; and &ldquo;User/Users&rdquo;, means any person availing the products and/or services offered on the Platform; &ldquo;Website&rdquo; shall mean www.instamojo.com or the mobile application    MERCHANT&apos;S RIGHTS  You agree that we may collect, store, and share the information provided by you in order to deliver the products and/or services availed by you on our Platform and/or contact you in relation to the same.    YOUR RESPONSIBILITIES  You agree to provide us with true, complete and up-to-date information about yourself as may be required for the purpose of completing the Transactions. This information includes but is not limited to the personal details such as name, email address, phone number, delivery address,age, and gender (or any other information that we may deem necessary for us to fulfil the Transaction) as well as the accurate payment information required for the transaction.    PROHIBITED ACTIONS  You may not access or use the Platform for any purpose other than that for which we make the Platform available. The Platform may not be used in connection with any commercial endeavors except those that are specifically endorsed or approved by us As a User of the Platform, you agree not to: Systematically retrieve data or other content from the Platform to create or compile, directly or indirectly, a collection, compilation, database, or directory without written permission from us. Make any unauthorized use of the Platform, including collecting usernames and/or email addresses of users by electronic or other means for the purpose of sending unsolicited email, or creating user accounts by automated means or under false pretenses. Circumvent, disable, or otherwise interfere with security-related features of the Platform, including features that prevent or restrict the use or copying of any Content or enforce limitations on the use of the Platform and/or the Content contained therein. Trick, defraud, or mislead us and other users, especially in any attempt to learn sensitive account information such as user passwords. Make improper use of our support services or submit false reports of abuse or misconduct. Engage in any automated use of the system, such as using scripts to send comments or messages, or using any data mining, robots, or similar data gathering and extraction tools.Interfere with, disrupt, or create an undue burden on the Platform or the networks or services connected to the Platform. Attempt to impersonate another user or person or use the username of another user Use any information obtained from the Platform in order to harass, abuse, or harm another person. Use the Platform as part of any effort to compete with us or otherwise use the Platform and/or the Content for any revenue-generating endeavor or commercial enterprise. Decipher, decompile, disassemble, or reverse engineer any of the software comprising or in any way making up a part of the Platform. Attempt to bypass any measures of the Platform designed to prevent or restrict access to the Platform, or any portion of the Platform. Harass, annoy, intimidate, or threaten any of our employees or agents engaged in providing any portion of the Platform to you. Copy or adapt the Platform&apos;s software, including but not limited to Flash, PHP, HTML, JavaScript, or other code. Upload or transmit (or attempt to upload or to transmit) viruses, Trojan horses, or other material, including excessive use of capital letters and spamming (continuous posting of repetitive text), that interferes with any party&apos;s uninterrupted use and enjoyment of the Platform or modifies, impairs, disrupts, alters, or interferes with the use, features, functions, operation, or maintenance of the Platform. Disparage, tarnish, or otherwise harm, in our opinion, us and/or the Platform. Use the Platform in a manner inconsistent with any applicable laws or regulations.    LIMITATION OF LIABILITY The User agrees that the only recourse that the User has in the event of receiving a defective product and/or deficiency in service or a product and/or service which does not match the provided description is to initiate the refund process which will be subject to the terms for refund under this agreement. We hereby expressly disclaim any liability to them for any losses. The User shall indemnify and hold harmless the Merchant and its affiliates, agents and representatives from and against any and all claims, demands, causes of action, obligations, liabilities, losses, damages, injuries, costs and expenses incurred or sustained by reason of or arising out of any breach or alleged breach of any of the terms herein by the User    GUIDELINES FOR REVIEWS  We may provide you areas on the Platform to leave reviews or ratings. When posting a review, you must comply with the following criteria:         You should have firsthand experience with the person/entity being reviewed. Your reviews should not contain offensive profanity, or abusive, racist, offensive, or hate language. Your reviews should not contain discriminatory references based on religion, race, gender, national origin, age, marital status, sexual orientation, or disability. Your reviews should not contain references to illegal activity.  You should not be affiliated with competitors if posting negative reviews. You should not make any conclusions as to the legality of conduct.  You may not post any false or misleading statements. You may not organize a campaign encouraging others to post reviews, whether positive or negative.  We may accept, reject, or remove reviews in our sole discretion. We have absolutely no obligation to screen reviews or to delete reviews, even if anyone considers reviews objectionable or inaccurate. Reviews are not endorsed by us, and do not necessarily represent our opinions or the views of any of our affiliates or partners. We do not assume liability for any review or for any claims, liabilities, or losses resulting from any review. By posting a review, you hereby grant to us a perpetual, non-exclusive, worldwide, royalty-free, fully paid, assignable, and sublicensable right and license to reproduce, modify, translate, transmit by any means, display, perform and/or distribute all content relating to reviews.            GOVERNING LAWS &amp; DISPUTE RESOLUTION   Please note that these terms of use, their subject matter and their formation, are governed by the laws of India . You and we both agree that the courts of India will have exclusive jurisdiction over any dispute. Any dispute or claim arising out of or in connection with or relating to these Terms or their breach, termination or invalidity hereof (&ldquo; Dispute&rdquo;) shall be referred to and finally resolved by arbitration in Bengaluru in accordance with the Arbitration and Conciliation Act, 1996 for the time being in force, which rules are deemed to be incorporated by reference in this clause 12.2. Within 30 (thirty) days of the issue of a notice of Dispute, the parties shall mutually agree on the appointment of a sole arbitrator. If such mutual agreement is not arrived at within the aforesaid 30 (thirty) days&apos; period, the parties shall appoint such sole arbitrator in accordance with the Arbitration and Conciliation Act, 1996. The seat of arbitration shall be India and the arbitration proceedings shall be conducted in the English language. The parties shall keep the arbitration confidential and not disclose to any person, other than those necessary to the proceedings, any information, transcripts or award unless required to do so by law. The decision of the arbitrator shall be final and binding on all the parties hereto. The parties hereto agree that their consent for resolution of Dispute through arbitration shall not preclude or restrain either of them from seeking suitable injunctive relief in appropriate circumstances from courts in Bengaluru. The cost of arbitration shall be borne in the manner and by a party as determined by the arbitrators. In the meantime, each party shall bear its own cost for the arbitration which shall be reimbursed as per the directions in the arbitral award.    GRIEVANCE REDRESSAL   You agree that if you have any question or complaint with regard to any product and/or service availed on our Platform, or pertaining to the Transaction, including but not limited to, double debit of Transaction Amount, fraudulent Transaction, unauthorized Transaction, refund requests, etc., you may reach out here           DISCLAIMER   That upon initiating a Transaction, you as a User are entering into a legally binding and enforceable contract with us to purchase the products and/or services, and you shall pay the price as listed on the Platform through legitimate and legal sources of funds and through the accepted Payment Instruments. That you shall provide accurate payment details to the secure payment system for making purchase on the Platform. The information provided by you may be utilized or shared with any third party if required in relation to fraud verifications or by law, regulation or court order. We expressly disclaim all liabilities that may arise as a consequence of any unauthorized use of a User’s Payment Instrument. That all payments undertaken by you are subject to your own risk and volition. We shall not be liable for any loss or damage occurred to you arising directly or indirectly due to the decline of authorization for any Transaction, malfunction, errors and/or unscrupulous activities. If you receive a User identification code, order ID, password or any other piece of information as part of our security procedures, you must treat such information as confidential. You must not disclose it to any third party. The content on our Platform is provided for general information only. The information provided does not to amount to advice from us in any manner and should not be relied upon. Where our Platform contains links to other websites and resources provided by third parties, these links are provided for your information only. Such links should not be interpreted as approval by us of those linked websites or information you may obtain from them. This Platform includes information and materials uploaded by other Users of the Platform. You understand that such information and materials have not been verified or approved by us. The views expressed by other Users on our Platform do not represent our views or values. We do not guarantee that our Platform will be secure or free from bugs or viruses. You are responsible for configuring your information technology, computer programs and platform to access our Platform. You must use your own virus protection software.        
+            </p>
+        </div>
     </section>
 
-    <!-- Donation -->
-    <section id="donate-form" class="py-16 bg-white">
-      <div class="container-max-w">
-        <h2 class="text-3xl font-bold text-center mb-6">Make Your Contribution</h2>
-        <p class="text-center text-gray-700 mb-8">Choose an amount or enter custom. Every donation makes a difference.</p>
 
-        <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow">
-          <form id="donationForm" class="space-y-6">
+    <footer class="bg-gray-800 text-white py-10 px-4">
+        <div class="container-max-w grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div class="mb-6 md:mb-0">
+                <a href="index.html" class="flex items-center justify-center md:justify-start space-x-2 mb-3">
+                    <img src="https://i.ibb.co/VWD3vh8S/20250605-175233.png" alt="AgoraNet Logo" class="h-8 w-8 rounded-full">
+                    <span class="text-xl font-bold">AgoraNet</span>
+                </a>
+                <p class="text-gray-400 text-sm">Empowering digital connections.</p>
+                <p class="text-gray-400 text-sm mt-2">&copy; 2025 AgoraNet. All rights reserved.</p>
+            </div>
+
+            <div class="mb-6 md:mb-0">
+                <h3 class="text-lg font-semibold mb-4 text-white">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="index.html#about" class="text-gray-400 hover:text-indigo-400 transition-colors">About Us</a></li>
+                    <li><a href="index.html#why-donate" class="text-gray-400 hover:text-indigo-400 transition-colors">Why Donate?</a></li>
+                    <li><a href="index.html#donate-form" class="text-gray-400 hover:text-indigo-400 transition-colors">Donate Now</a></li>
+                    <li><a href="contact.html" target="_blank" class="text-gray-400 hover:text-indigo-400 transition-colors">Contact Us</a></li>
+                    <li><a href="Refund-and-Cancellation-Policy.html" target="_blank" class="text-gray-400 hover:text-indigo-400 transition-colors">Refund and Cancellation Policy</a></li>
+                    <li><a href="Terms-and-Conditions.html" target="_blank" class="text-gray-400 hover:text-indigo-400 transition-colors">Terms and Conditions</a></li>
+                </ul>
+            </div>
+
             <div>
-              <label for="amount" class="block text-sm font-medium mb-1">Donation Amount (₹)</label>
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
-                <button type="button" class="donation-preset px-4 py-2 border rounded-md bg-white" data-amount="250">₹250</button>
-                <button type="button" class="donation-preset px-4 py-2 border rounded-md bg-white" data-amount="500">₹500</button>
-                <button type="button" class="donation-preset px-4 py-2 border rounded-md bg-white" data-amount="1000">₹1000</button>
-                <button type="button" class="donation-preset px-4 py-2 border rounded-md bg-white" data-amount="2500">₹2500</button>
-              </div>
-              <input type="number" id="amount" min="10" value="100" class="w-full border px-4 py-3 rounded-lg" required>
-              <p class="text-xs text-gray-500 mt-1">Minimum donation: ₹10</p>
+                <h3 class="text-lg font-semibold mb-4 text-white">Terms and Conditions</h3>
+                <div class="flex justify-center md:justify-start space-x-6 mb-4">
+                    <a href="https://facebook.com/agoranet" target="_blank" class="text-gray-400 hover:text-blue-500 transition-colors text-2xl" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://twitter.com/agoranet" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors text-2xl" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://linkedin.com/company/agoranet" target="_blank" class="text-gray-400 hover:text-blue-700 transition-colors text-2xl" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://instagram.com/agoranet" target="_blank" class="text-gray-400 hover:text-pink-500 transition-colors text-2xl" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+                <p class="text-gray-400 text-sm">Official Website: <a href="https://your-agoranet-official-website.com" target="_blank" class="text-indigo-400 hover:underline">your-agoranet-official-website.com</a></p>
+                <p class="text-gray-400 text-sm">Email: <a href="mailto:info@agoranet.com" class="text-indigo-400 hover:underline">info@agoranet.com</a></p>
             </div>
-
-            <input type="text" id="name" placeholder="Your Name (Optional)" class="w-full border px-4 py-3 rounded-lg">
-            <input type="email" id="email" placeholder="Your Email" class="w-full border px-4 py-3 rounded-lg" required>
-
-            <div class="flex items-center">
-              <input type="checkbox" id="recurring" class="mr-2">
-              <label for="recurring" class="text-sm">Make this a monthly donation</label>
-            </div>
-
-            <!-- Payment Methods -->
-            <div>
-              <h3 class="text-lg font-medium mb-3">Payment Method</h3>
-              <div class="grid grid-cols-2 gap-3">
-                <button type="button" id="upiPaymentBtn" class="border p-3 rounded-lg hover:bg-gray-50 flex items-center justify-center"><i class="fas fa-mobile-alt mr-2"></i> UPI Payment</button>
-                <button type="button" id="qrPaymentBtn" class="border p-3 rounded-lg hover:bg-gray-50 flex items-center justify-center"><i class="fas fa-qrcode mr-2"></i> QR Code</button>
-              </div>
-
-              <!-- UPI Icons -->
-              <div class="flex justify-center space-x-4 mt-4">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/PhonePe_Logo.svg" alt="PhonePe" class="h-8 w-auto">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Google_Pay_Logo.svg" alt="Google Pay" class="h-8 w-auto">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Paytm_Logo.png" alt="Paytm" class="h-8 w-auto">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/BHIM_logo.svg" alt="BHIM" class="h-8 w-auto">
-              </div>
-            </div>
-
-            <!-- Buy Me a Coffee -->
-            <div class="text-center mt-6">
-              <a href="https://www.buymeacoffee.com/yourusername" target="_blank">
-                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" class="h-12 mx-auto">
-              </a>
-              <p class="text-sm text-gray-600 mt-2">International users can donate here</p>
-            </div>
-
-            <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700">Proceed to Payment</button>
-          </form>
         </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-white py-10">
-    <div class="container-max-w grid md:grid-cols-4 gap-8 text-sm">
-      <div>
-        <img src="https://i.ibb.co/VWD3vh8S/20250605-175233.png" class="h-8 mb-2" alt="AgoraNet Logo">
-        <p>Empowering digital connections.</p>
-        <p class="mt-2">&copy; 2025 AgoraNet. All rights reserved.</p>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-3">Quick Links</h3>
-        <ul class="space-y-1">
-          <li><a href="#about" class="hover:text-indigo-400">About Us</a></li>
-          <li><a href="#why-donate" class="hover:text-indigo-400">Why Donate?</a></li>
-          <li><a href="#donate-form" class="hover:text-indigo-400">Donate</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-3">Legal</h3>
-        <ul class="space-y-1">
-          <li><a href="terms.html" class="hover:text-indigo-400">Terms & Conditions</a></li>
-          <li><a href="refund.html" class="hover:text-indigo-400">Refund Policy</a></li>
-          <li><a href="contact.html" class="hover:text-indigo-400">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-3">Contact</h3>
-        <p><i class="fas fa-phone-alt mr-2"></i> +91 9489588709</p>
-        <p class="mt-2"><i class="fas fa-envelope mr-2"></i> ThiruXD@gmail.com</p>
-        <div class="flex space-x-4 mt-3">
-          <a href="#"><i class="fab fa-facebook-f hover:text-blue-500"></i></a>
-          <a href="#"><i class="fab fa-twitter hover:text-blue-400"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in hover:text-blue-600"></i></a>
-          <a href="#"><i class="fab fa-instagram hover:text-pink-500"></i></a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const menuBtn = document.getElementById("mobile-menu-button");
-      const nav = document.getElementById("main-nav");
-      menuBtn.addEventListener("click", () => nav.classList.toggle("hidden"));
-
-      const amountInput = document.getElementById("amount");
-      document.querySelectorAll(".donation-preset").forEach(btn => {
-        btn.addEventListener("click", () => amountInput.value = btn.dataset.amount);
-      });
-    });
-  </script>
+    </footer>
 </body>
 </html>
