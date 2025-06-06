@@ -241,21 +241,20 @@
 
                         <!-- Payment Method Selection (shown after clicking Proceed to Payment) -->
                         <div id="paymentMethods" class="hidden pt-4 border-t border-gray-200">
-                            <h3 class="text-lg font-medium text-gray-900 mb-3">Select Payment Method</h3>
+                            <h3 class="text-lg font-medium text-gray-900 mb-1">Select Payment Method</h3>
                             <div class="grid grid-cols-1 gap-3 mb-4">
                                 <button type="button" id="upiPaymentBtn" class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center space-x-2 transition-colors">
-                                    <i class="fab fa-google-pay text-lg text-blue-600"></i>
-                                    <i class="fab fa-amazon-pay text-lg text-orange-500"></i>
+                                    <i class="fab fa-google-pay text-lg text-black-600"></i>
                                     <span>UPI Payment</span>
                                 </button>
                                 <button type="button" id="qrPaymentBtn" class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center space-x-2 transition-colors">
-                                    <i class="fas fa-qrcode text-lg text-indigo-600"></i>
+                                    <i class="fas fa-qrcode text-lg text-black-600"></i>
                                     <span>QR Code</span>
                                 </button>
-                                <button type="button" id="coffeePaymentBtn" class="p-3 border border-coffee-500 rounded-lg flex items-center justify-center space-x-2 bg-coffee-500 hover:bg-coffee-600 text-white font-medium transition-colors">
-                                    <i class="fas fa-coffee text-lg"></i>
-                                    <span>Buy Me a Coffee</span>
-                                </button>
+                                <dev class="flex items-center justify-center space-x-2 ">
+                                  <!-- copy and paste your script code from buymeacoffee -->
+                                  <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="ThiruXD" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+                                </dev>
                             </div>
                         </div>
 
@@ -269,35 +268,16 @@
                         <div class="bg-white p-6 rounded-xl max-w-sm mx-4 text-center card-shadow">
                             <h3 class="text-xl font-bold mb-4">Scan QR Code to Pay</h3>
                             <div class="qr-code-container mb-4">
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=yourname@bank&pn=AgoraNet&am=100&cu=INR" alt="UPI QR Code" class="mx-auto">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=ThiruXD@ptyes&pn=AgoraNet&am=100&cu=INR" alt="UPI QR Code" class="mx-auto">
                             </div>
                             <p class="text-gray-600 mb-4">Scan with any UPI app</p>
                             <div class="flex items-center justify-center space-x-2 mb-4">
-                                <span class="font-mono bg-gray-100 p-2 rounded">yourname@bank</span>
+                                <span class="font-mono bg-gray-100 p-2 rounded">ThiruXD@ptyes</span>
                                 <button id="copyUpiId" class="text-indigo-600 hover:text-indigo-800">
                                     <i class="far fa-copy"></i>
                                 </button>
                             </div>
                             <button id="closeQrModal" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">Close</button>
-                        </div>
-                    </div>
-
-                    <!-- Buy Me a Coffee Modal -->
-                    <div id="coffeeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-                        <div class="bg-white p-6 rounded-xl max-w-sm mx-4 text-center card-shadow">
-                            <div class="flex justify-center mb-4">
-                                <i class="fas fa-coffee text-5xl text-coffee-500"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-2">Support with Coffee</h3>
-                            <p class="text-gray-600 mb-4">You're donating ₹<span id="coffeeAmount">100</span> - equivalent to <span id="coffeeCups">2</span> coffees!</p>
-                            <div class="flex justify-center space-x-4">
-                                <button id="confirmCoffee" class="bg-coffee-500 text-white px-6 py-2 rounded-lg hover:bg-coffee-600 transition font-medium">
-                                    Confirm Payment
-                                </button>
-                                <button id="cancelCoffee" class="bg-gray-200 text-gray-800 px-6 py-2 rounded-lg hover:bg-gray-300 transition">
-                                    Cancel
-                                </button>
-                            </div>
                         </div>
                     </div>
 
@@ -346,24 +326,20 @@
     <section class="py-16 px-4 bg-white" id="contact">
         <div class="container-max-w">
             <h2 class="text-3xl font-bold text-gray-900 text-center mb-2">Connect With Us</h2>
-            <p class="text-lg text-gray-700 text-center mb-8">Follow our journey and stay updated</p>
+            <p class="text-lg text-gray-700 text-center mb-2">Follow our journey and stay updated</p>
             
             <div class="social-links">
-                <a href="#" class="social-link facebook">
-                    <i class="fab fa-facebook-f"></i>
-                    Facebook
+                <a href="https://telegram.me/AgoraNet" class="social-link facebook">
+                    <i class="fa-brands fa-telegram"></i>
+                    Updates
                 </a>
-                <a href="#" class="social-link twitter">
-                    <i class="fab fa-twitter"></i>
-                    Twitter
+                <a href="https://telegram.me/AgoraNet_Chat" class="social-link facebook">
+                    <i class="fa-brands fa-telegram"></i>
+                    Support Chat
                 </a>
-                <a href="#" class="social-link linkedin">
-                    <i class="fab fa-linkedin-in"></i>
-                    LinkedIn
-                </a>
-                <a href="#" class="social-link instagram">
-                    <i class="fab fa-instagram"></i>
-                    Instagram
+                <a href="https://telegram.me/AgoraNet_Donations" class="social-link facebook">
+                    <i class="fa-brands fa-telegram"></i>
+                    Donations
                 </a>
             </div>
         </div>
@@ -464,7 +440,7 @@
             // Generate UPI Payment Link
             function generateUpiLink(amount, name = 'Anonymous') {
                 const tid = 'AGORA' + Date.now(); // Unique transaction ID
-                return `upi://pay?pa=yourname@bank&pn=AgoraNet&am=${amount}&cu=INR&tn=Donation to AgoraNet by ${encodeURIComponent(name)}&tid=${tid}`;
+                return `upi://pay?pa=ThiruXD@ptyes&pn=AgoraNet&am=${amount}&cu=INR&tn=Donation to AgoraNet by ${encodeURIComponent(name)}&tid=${tid}`;
             }
 
             // Show processing animation
@@ -654,7 +630,7 @@
 
             // Copy UPI ID
             copyUpiId.addEventListener('click', () => {
-                navigator.clipboard.writeText('yourname@bank')
+                navigator.clipboard.writeText('ThiruXD@ptyes')
                     .then(() => {
                         const originalIcon = copyUpiId.innerHTML;
                         copyUpiId.innerHTML = '<i class="fas fa-check"></i>';
