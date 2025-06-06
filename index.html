@@ -23,30 +23,145 @@
                     },
                     animation: {
                         'spin-slow': 'spin 2s linear infinite',
+                        'bounce': 'bounce 1s infinite',
+                        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    },
+                    keyframes: {
+                        bounce: {
+                            '0%, 100%': { transform: 'translateY(-25%)', animationTimingFunction: 'cubic-bezier(0.8,0,1,1)' },
+                            '50%': { transform: 'translateY(0)', animationTimingFunction: 'cubic-bezier(0,0,0.2,1)' }
+                        }
                     }
                 }
             }
         }
     </script>
-    <style>
+    <style type="text/css">
+        /* Custom CSS */
         .container-max-w {
             max-width: 90%;
             margin: 0 auto;
         }
+        
         @media (min-width: 768px) {
             .container-max-w {
                 max-width: 1200px;
             }
         }
+        
         .nav-link.active {
-            @apply text-indigo-600 font-semibold;
+            color: #6366F1;
+            font-weight: 600;
         }
+        
         .qr-code-container {
             transition: all 0.3s ease;
         }
+        
         .qr-code-container:hover {
             transform: scale(1.05);
         }
+        
+        /* Animation for success message */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        /* Custom checkbox style */
+        .custom-checkbox {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 1rem;
+            height: 1rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.25rem;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+        }
+        
+        .custom-checkbox:checked {
+            background-color: #6366F1;
+            border-color: #6366F1;
+        }
+        
+        .custom-checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 0.75rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* Gradient background for hero section */
+        .hero-gradient {
+            background: linear-gradient(135deg, #4F46E5 0%, #312E81 100%);
+        }
+        
+        /* Custom shadow for cards */
+        .card-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Responsive tweaks */
+        @media (max-width: 640px) {
+            .mobile-stack {
+                flex-direction: column;
+            }
+            
+            .mobile-full-width {
+                width: 100%;
+            }
+        }
+        /* Social Section */
+        .social-section {
+            padding: 50px 0;
+            background: white;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: white;
+            color: #4a5568;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-link.facebook:hover { color: #1877f2; border-color: #1877f2; }
+        .social-link.twitter:hover { color: #1da1f2; border-color: #1da1f2; }
+        .social-link.linkedin:hover { color: #0077b5; border-color: #0077b5; }
+        .social-link.instagram:hover { color: #e4405f; border-color: #e4405f; }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
@@ -77,7 +192,7 @@
 
     <main class="flex-grow">
         <!-- Hero Section -->
-        <section id="hero" class="bg-indigo-600 text-white py-20 px-4 text-center">
+        <section id="hero" class="hero-gradient text-white py-20 px-4 text-center">
             <div class="container-max-w">
                 <h1 class="text-4xl sm:text-5xl font-extrabold mb-4 leading-tight">Empowering Digital Connections</h1>
                 <p class="text-lg sm:text-xl mb-8 opacity-90">
@@ -95,7 +210,7 @@
                 <h2 class="text-3xl font-bold text-gray-900 text-center mb-8">Make Your Contribution</h2>
                 <p class="text-lg text-gray-700 text-center mb-8">Choose an amount below or enter a custom one. Every donation makes a difference.</p>
 
-                <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md mx-auto">
+                <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md mx-auto card-shadow">
                     <form id="donationForm" class="space-y-6">
                         <div>
                             <label for="amount" class="block text-sm font-medium text-gray-700 mb-1">Donation Amount (₹)</label>
@@ -120,7 +235,7 @@
                         </div>
 
                         <div class="flex items-center">
-                            <input id="recurring" name="recurring" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                            <input id="recurring" name="recurring" type="checkbox" class="custom-checkbox">
                             <label for="recurring" class="ml-2 block text-sm text-gray-900">Make this a monthly donation</label>
                         </div>
 
@@ -128,12 +243,12 @@
                         <div id="paymentMethods" class="hidden pt-4 border-t border-gray-200">
                             <h3 class="text-lg font-medium text-gray-900 mb-3">Select Payment Method</h3>
                             <div class="grid grid-cols-1 gap-3 mb-4">
-                                <button type="button" id="upiPaymentBtn" class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center space-x-2">
+                                <button type="button" id="upiPaymentBtn" class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center space-x-2 transition-colors">
                                     <i class="fab fa-google-pay text-lg text-blue-600"></i>
                                     <i class="fab fa-amazon-pay text-lg text-orange-500"></i>
                                     <span>UPI Payment</span>
                                 </button>
-                                <button type="button" id="qrPaymentBtn" class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center space-x-2">
+                                <button type="button" id="qrPaymentBtn" class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center space-x-2 transition-colors">
                                     <i class="fas fa-qrcode text-lg text-indigo-600"></i>
                                     <span>QR Code</span>
                                 </button>
@@ -144,14 +259,14 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
+                        <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-indigo-700 transition-colors shadow-md">
                             Proceed to Payment
                         </button>
                     </form>
 
                     <!-- QR Code Modal -->
                     <div id="qrCodeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-                        <div class="bg-white p-6 rounded-xl max-w-sm mx-4 text-center">
+                        <div class="bg-white p-6 rounded-xl max-w-sm mx-4 text-center card-shadow">
                             <h3 class="text-xl font-bold mb-4">Scan QR Code to Pay</h3>
                             <div class="qr-code-container mb-4">
                                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=yourname@bank&pn=AgoraNet&am=100&cu=INR" alt="UPI QR Code" class="mx-auto">
@@ -169,7 +284,7 @@
 
                     <!-- Buy Me a Coffee Modal -->
                     <div id="coffeeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-                        <div class="bg-white p-6 rounded-xl max-w-sm mx-4 text-center">
+                        <div class="bg-white p-6 rounded-xl max-w-sm mx-4 text-center card-shadow">
                             <div class="flex justify-center mb-4">
                                 <i class="fas fa-coffee text-5xl text-coffee-500"></i>
                             </div>
@@ -186,7 +301,7 @@
                         </div>
                     </div>
 
-                    <div id="statusMessage" class="mt-6 text-center text-lg font-medium hidden"></div>
+                    <div id="statusMessage" class="mt-6 text-center text-lg font-medium hidden animate-fade-in"></div>
                 </div>
             </div>
         </section>
@@ -208,17 +323,17 @@
             <div class="container-max-w">
                 <h2 class="text-3xl font-bold text-gray-900 text-center mb-10">Why Your Donation Matters</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md text-center card-shadow hover:transform hover:scale-105 transition-transform">
                         <div class="text-4xl text-indigo-600 mb-4"><i class="fas fa-code"></i></div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-3">Develop New Features</h3>
                         <p class="text-gray-700">Your contribution fuels the research and development of innovative tools and features.</p>
                     </div>
-                    <div class="bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md text-center card-shadow hover:transform hover:scale-105 transition-transform">
                         <div class="text-4xl text-indigo-600 mb-4"><i class="fas fa-server"></i></div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-3">Maintain Infrastructure</h3>
                         <p class="text-gray-700">We rely on secure and robust servers to keep our platforms running smoothly 24/7.</p>
                     </div>
-                    <div class="bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md text-center card-shadow hover:transform hover:scale-105 transition-transform">
                         <div class="text-4xl text-indigo-600 mb-4"><i class="fas fa-users"></i></div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-3">Community Support</h3>
                         <p class="text-gray-700">We provide free support and resources to help communities utilize our tools effectively.</p>
@@ -227,31 +342,33 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-16 px-4 bg-gray-50">
-            <div class="container-max-w">
-                <h2 class="text-3xl font-bold text-gray-900 text-center mb-10">Contact Us</h2>
-                <div class="bg-white p-8 rounded-lg shadow-md max-w-2xl mx-auto">
-                    <form class="space-y-6">
-                        <div>
-                            <label for="contact-name" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
-                            <input type="text" id="contact-name" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
-                        </div>
-                        <div>
-                            <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">Your Email</label>
-                            <input type="email" id="contact-email" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
-                        </div>
-                        <div>
-                            <label for="contact-message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                            <textarea id="contact-message" rows="4" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
-                            Send Message
-                        </button>
-                    </form>
-                </div>
+            <!-- Social Media Section -->
+    <section class="py-16 px-4 bg-white" id="contact">
+        <div class="container-max-w">
+            <h2 class="text-3xl font-bold text-gray-900 text-center mb-2">Connect With Us</h2>
+            <p class="text-lg text-gray-700 text-center mb-8">Follow our journey and stay updated</p>
+            
+            <div class="social-links">
+                <a href="#" class="social-link facebook">
+                    <i class="fab fa-facebook-f"></i>
+                    Facebook
+                </a>
+                <a href="#" class="social-link twitter">
+                    <i class="fab fa-twitter"></i>
+                    Twitter
+                </a>
+                <a href="#" class="social-link linkedin">
+                    <i class="fab fa-linkedin-in"></i>
+                    LinkedIn
+                </a>
+                <a href="#" class="social-link instagram">
+                    <i class="fab fa-instagram"></i>
+                    Instagram
+                </a>
             </div>
-        </section>
+        </div>
+    </section>
+        
     </main>
 
     <!-- Footer -->
@@ -269,18 +386,18 @@
             <div>
                 <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
                 <ul class="space-y-2">
-                    <li><a href="#about" class="text-gray-400 hover:text-indigo-400">About Us</a></li>
-                    <li><a href="#why-donate" class="text-gray-400 hover:text-indigo-400">Why Donate?</a></li>
-                    <li><a href="#donate-form" class="text-gray-400 hover:text-indigo-400">Donate Now</a></li>
+                    <li><a href="#about" class="text-gray-400 hover:text-indigo-400 transition-colors">About Us</a></li>
+                    <li><a href="#why-donate" class="text-gray-400 hover:text-indigo-400 transition-colors">Why Donate?</a></li>
+                    <li><a href="#donate-form" class="text-gray-400 hover:text-indigo-400 transition-colors">Donate Now</a></li>
                 </ul>
             </div>
 
             <div>
                 <h3 class="text-lg font-semibold mb-4">Legal</h3>
                 <ul class="space-y-2">
-                    <li><a href="#" class="text-gray-400 hover:text-indigo-400">Terms & Conditions</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-indigo-400">Refund Policy</a></li>
-                    <li><a href="#contact" class="text-gray-400 hover:text-indigo-400">Contact Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">Terms & Conditions</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">Refund Policy</a></li>
+                    <li><a href="#contact" class="text-gray-400 hover:text-indigo-400 transition-colors">Contact Us</a></li>
                 </ul>
             </div>
 
@@ -289,10 +406,10 @@
                 <p class="text-gray-400"><i class="fas fa-phone-alt mr-2"></i> +91 9489588709</p>
                 <p class="text-gray-400 mt-2"><i class="fas fa-envelope mr-2"></i> ThiruXD@gmail.com</p>
                 <div class="flex space-x-4 mt-4">
-                    <a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-pink-500"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-600 transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </div>
@@ -354,8 +471,8 @@
             function showProcessingAnimation() {
                 const processingHTML = `
                     <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                        <div class="bg-white p-6 rounded-xl max-w-sm mx-4 text-center">
-                            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+                        <div class="bg-white p-6 rounded-xl max-w-sm mx-4 text-center card-shadow">
+                            <div class="animate-spin-slow rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
                             <h3 class="text-xl font-bold mb-2">Processing Payment</h3>
                             <p class="text-gray-600">Please wait while we process your donation...</p>
                         </div>
@@ -369,6 +486,27 @@
                 return processingDiv;
             }
 
+            // Show appreciation animation
+            function showAppreciationAnimation(amount) {
+                const animationContainer = document.createElement('div');
+                animationContainer.className = 'fixed inset-0 flex items-center justify-center z-50 pointer-events-none';
+                
+                const emoji = amount >= 1000 ? '🎉' : '👍';
+                const message = amount >= 1000 ? 'Wow! Thank you!' : 'Thank you!';
+                
+                animationContainer.innerHTML = `
+                    <div class="animate-bounce text-4xl font-bold bg-white p-6 rounded-full shadow-lg">
+                        <div class="text-5xl mb-2">${emoji}</div>
+                        <div class="text-coffee-600">${message}</div>
+                    </div>
+                `;
+                document.body.appendChild(animationContainer);
+                
+                setTimeout(() => {
+                    animationContainer.remove();
+                }, 3000);
+            }
+
             // Form submission - show payment methods
             donationForm.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -377,7 +515,7 @@
                 const email = document.getElementById('email').value;
                 
                 // Validate amount
-                if (isNaN(amount) {
+                if (isNaN(amount)) {
                     showStatus('Please enter a valid amount', 'error');
                     amountInput.focus();
                     return;
@@ -410,6 +548,8 @@
             upiPaymentBtn.addEventListener('click', () => {
                 const amount = parseInt(amountInput.value);
                 const name = document.getElementById('name').value.trim() || 'Anonymous';
+                const email = document.getElementById('email').value;
+                const isRecurring = document.getElementById('recurring').checked;
                 
                 if (amount < 10) {
                     showStatus('Minimum donation is ₹10', 'error');
@@ -423,12 +563,17 @@
                     processingDiv.remove();
                     
                     if (isMobile) {
+                        // In a real app, you would process the payment here
+                        showStatus(`Thank you for your ${isRecurring ? 'monthly ' : ''}donation of ₹${amount} via UPI!`, 'success');
+                        showAppreciationAnimation(amount);
+                        
+                        if (!isRecurring) {
+                            donationForm.reset();
+                            amountInput.value = 100;
+                            paymentMethods.classList.add('hidden');
+                        }
+                        
                         window.location.href = upiLink;
-                        setTimeout(() => {
-                            if (!document.hidden) {
-                                showStatus('No UPI app detected. Please try QR code instead.', 'info');
-                            }
-                        }, 500);
                     } else {
                         showStatus('Please use QR code payment on desktop', 'info');
                     }
@@ -438,13 +583,22 @@
             // QR Code Payment Button
             qrPaymentBtn.addEventListener('click', () => {
                 const amount = parseInt(amountInput.value);
+                const name = document.getElementById('name').value.trim() || 'Anonymous';
+                const email = document.getElementById('email').value;
+                const isRecurring = document.getElementById('recurring').checked;
+                
                 if (amount < 10) {
                     showStatus('Minimum donation is ₹10', 'error');
                     return;
                 }
+                
                 // Update QR code with current amount
-                document.querySelector('#qrCodeModal img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(generateUpiLink(amount))}`;
+                document.querySelector('#qrCodeModal img').src = 
+                    `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(generateUpiLink(amount))}`;
                 qrCodeModal.classList.remove('hidden');
+                
+                // In a real app, you would track this selection
+                console.log('User selected QR payment for amount:', amount);
             });
 
             // Buy Me a Coffee Button
@@ -472,14 +626,17 @@
 
             // Confirm Coffee Payment
             confirmCoffee.addEventListener('click', () => {
-                const processingDiv = showProcessingAnimation();
                 const amount = parseInt(amountInput.value);
                 const name = document.getElementById('name').value.trim() || 'Anonymous';
+                const email = document.getElementById('email').value;
                 const isRecurring = document.getElementById('recurring').checked;
+                
+                const processingDiv = showProcessingAnimation();
                 
                 setTimeout(() => {
                     processingDiv.remove();
-                    showStatus(`Thank you for your coffee donation of ₹${amount}! ${isRecurring ? '(Monthly)' : ''}`, 'success');
+                    showStatus(`Thank you for your ${isRecurring ? 'monthly ' : ''}coffee donation of ₹${amount}!`, 'success');
+                    showAppreciationAnimation(amount);
                     coffeeModal.classList.add('hidden');
                     
                     if (!isRecurring) {
@@ -510,7 +667,7 @@
             // Show status message
             function showStatus(message, type) {
                 statusMessage.textContent = message;
-                statusMessage.className = 'mt-6 text-center text-lg font-medium block';
+                statusMessage.className = 'mt-6 text-center text-lg font-medium block animate-fade-in';
                 
                 switch(type) {
                     case 'error':
@@ -527,8 +684,68 @@
                 // Scroll to status message
                 statusMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
+            
+            // Update goal when donating
+            function updateDonationGoal(amount) {
+                donatedAmount += amount;
+                document.getElementById('goalProgress').style.width = 
+                    `${Math.min(100, (donatedAmount / donationGoal) * 100)}%`;
+                document.querySelector('#goalProgress + p').innerHTML = `
+                    <span id="donatedAmount">₹${donatedAmount.toLocaleString()}</span> of ₹${donationGoal.toLocaleString()} raised
+                    (${Math.round((donatedAmount / donationGoal) * 100)}%)
+                `;
+            }
+            
+            // Add currency converter for international donors
+            const currencyConverter = document.createElement('div');
+            currencyConverter.className = 'mt-4 text-sm';
+            currencyConverter.innerHTML = `
+                <button id="showCurrencyConverter" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                    <i class="fas fa-exchange-alt mr-2"></i>
+                    Convert to other currencies
+                </button>
+                <div id="currencyConverter" class="hidden mt-2 space-y-2 bg-gray-50 p-3 rounded-lg">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-16">USD:</span>
+                        <span id="usdAmount">$1.20</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-16">EUR:</span>
+                        <span id="eurAmount">€1.10</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-16">GBP:</span>
+                        <span id="gbpAmount">£0.95</span>
+                    </div>
+                </div>
+            `;
+            document.querySelector('#donate-form .container-max-w > div').appendChild(currencyConverter);
+            
+            // Currency converter functionality
+            document.getElementById('showCurrencyConverter').addEventListener('click', function() {
+                const converter = document.getElementById('currencyConverter');
+                converter.classList.toggle('hidden');
+                
+                if (!converter.classList.contains('hidden')) {
+                    const amount = parseFloat(amountInput.value) || 100;
+                    // These are example rates - in a real app you'd use an API
+                    document.getElementById('usdAmount').textContent = 
+                        `$${(amount * 0.012).toFixed(2)}`;
+                    document.getElementById('eurAmount').textContent = 
+                        `€${(amount * 0.011).toFixed(2)}`;
+                    document.getElementById('gbpAmount').textContent = 
+                        `£${(amount * 0.0095).toFixed(2)}`;
+                }
+            });
+            
+            // Update currency conversion when amount changes
+            amountInput.addEventListener('input', function() {
+                if (!document.getElementById('currencyConverter').classList.contains('hidden')) {
+                    document.getElementById('showCurrencyConverter').click();
+                    document.getElementById('showCurrencyConverter').click();
+                }
+            });
         });
     </script>
- 
 </body>
 </html>
