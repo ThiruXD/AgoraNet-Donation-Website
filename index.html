@@ -1,192 +1,358 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Support AgoraNet - Digital Empowerment Platform</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            indigo: {
-              '50': '#EEF2FF', '100': '#E0E7FF', '200': '#C7D2FE', '300': '#A5B4FC',
-              '400': '#818CF8', '500': '#6366F1', '600': '#4F46E5', '700': '#4338CA',
-              '800': '#3730A3', '900': '#312E81', '950': '#1E1B4B',
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support AgoraNet - Digital Empowerment Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: {
+                            '50': '#EEF2FF', '100': '#E0E7FF', '200': '#C7D2FE', '300': '#A5B4FC',
+                            '400': '#818CF8', '500': '#6366F1', '600': '#4F46E5', '700': '#4338CA',
+                            '800': '#3730A3', '900': '#312E81', '950': '#1E1B4B',
+                        }
+                    }
+                }
             }
-          }
         }
-      }
-    }
-  </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <style>
-    .container-max-w {
-      max-width: 90%;
-      margin: 0 auto;
-    }
-    @media (min-width: 768px) {
-      .container-max-w {
-        max-width: 1200px;
-      }
-    }
-    img {
-      max-width: 100%;
-      display: inline-block;
-    }
-    .qr-code-container {
-      transition: all 0.3s ease;
-    }
-    .qr-code-container:hover {
-      transform: scale(1.05);
-    }
-  </style>
+    </script>
+    <style>
+        .container-max-w {
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .container-max-w {
+                max-width: 1200px;
+            }
+        }
+        .nav-link.active {
+            @apply text-indigo-600 font-semibold;
+        }
+        .qr-code-container {
+            transition: all 0.3s ease;
+        }
+        .qr-code-container:hover {
+            transform: scale(1.05);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
-
 <body class="bg-gray-100 font-sans antialiased text-gray-800 flex flex-col min-h-screen">
-  <!-- Header -->
-  <header class="bg-white shadow-md py-4 sticky top-0 z-50">
-    <div class="container-max-w flex justify-between items-center relative">
-      <a href="index.html" class="flex items-center space-x-2">
-        <img src="https://i.ibb.co/VWD3vh8S/20250605-175233.png" alt="AgoraNet Logo" class="h-10 w-10 rounded-full">
-        <span class="text-2xl font-bold text-gray-900">AgoraNet</span>
-      </a>
-      <button id="mobile-menu-button" class="md:hidden p-2 text-gray-700 hover:text-indigo-600 focus:outline-none">
-        <i class="fas fa-bars text-xl"></i>
-      </button>
-      <nav id="main-nav" class="hidden md:block absolute md:static top-full left-0 right-0 bg-white md:bg-transparent py-4 md:py-0 w-full md:w-auto">
-        <ul class="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0 text-center md:text-left">
-          <li><a href="#donate-form" class="block text-gray-600 hover:text-indigo-600 font-bold">Donate</a></li>
-          <li><a href="#about" class="block text-gray-600 hover:text-indigo-600">About Us</a></li>
-          <li><a href="#why-donate" class="block text-gray-600 hover:text-indigo-600">Why Donate?</a></li>
-          <li><a href="contact.html" class="block text-gray-600 hover:text-indigo-600">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
 
-  <!-- Main -->
-  <main class="flex-grow">
-    <!-- Hero -->
-    <section id="hero" class="bg-indigo-600 text-white py-20 text-center">
-      <div class="container-max-w">
-        <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Empowering Digital Connections</h1>
-        <p class="text-lg mb-8">Support AgoraNet in creating open, accessible, and inclusive digital spaces for everyone.</p>
-        <a href="#donate-form" class="bg-white text-indigo-700 px-8 py-3 rounded-full font-semibold hover:bg-indigo-100 shadow-lg">Support Our Mission</a>
-      </div>
-    </section>
+    <!-- Header -->
+    <header class="bg-white shadow-md py-4 sticky top-0 z-50">
+        <div class="container-max-w flex justify-between items-center relative">
+            <a href="index.html" class="flex items-center space-x-2">
+                <img src="https://i.ibb.co/VWD3vh8S/20250605-175233.png" alt="AgoraNet Logo" class="h-10 w-10 rounded-full">
+                <span class="text-2xl font-bold text-gray-900">AgoraNet</span>
+            </a>
 
-    <!-- Donation -->
-    <section id="donate-form" class="py-16 bg-white">
-      <div class="container-max-w">
-        <h2 class="text-3xl font-bold text-center mb-6">Make Your Contribution</h2>
-        <p class="text-center text-gray-700 mb-8">Choose an amount or enter custom. Every donation makes a difference.</p>
+            <button id="mobile-menu-button" class="md:hidden p-2 text-gray-700 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md" aria-label="Toggle navigation">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
 
-        <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow">
-          <form id="donationForm" class="space-y-6">
-            <div>
-              <label for="amount" class="block text-sm font-medium mb-1">Donation Amount (₹)</label>
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
-                <button type="button" class="donation-preset px-4 py-2 border rounded-md bg-white" data-amount="250">₹250</button>
-                <button type="button" class="donation-preset px-4 py-2 border rounded-md bg-white" data-amount="500">₹500</button>
-                <button type="button" class="donation-preset px-4 py-2 border rounded-md bg-white" data-amount="1000">₹1000</button>
-                <button type="button" class="donation-preset px-4 py-2 border rounded-md bg-white" data-amount="2500">₹2500</button>
-              </div>
-              <input type="number" id="amount" min="10" value="100" class="w-full border px-4 py-3 rounded-lg" required>
-              <p class="text-xs text-gray-500 mt-1">Minimum donation: ₹10</p>
-            </div>
-
-            <input type="text" id="name" placeholder="Your Name (Optional)" class="w-full border px-4 py-3 rounded-lg">
-            <input type="email" id="email" placeholder="Your Email" class="w-full border px-4 py-3 rounded-lg" required>
-
-            <div class="flex items-center">
-              <input type="checkbox" id="recurring" class="mr-2">
-              <label for="recurring" class="text-sm">Make this a monthly donation</label>
-            </div>
-
-            <!-- Payment Methods -->
-            <div>
-              <h3 class="text-lg font-medium mb-3">Payment Method</h3>
-              <div class="grid grid-cols-2 gap-3">
-                <button type="button" id="upiPaymentBtn" class="border p-3 rounded-lg hover:bg-gray-50 flex items-center justify-center"><i class="fas fa-mobile-alt mr-2"></i> UPI Payment</button>
-                <button type="button" id="qrPaymentBtn" class="border p-3 rounded-lg hover:bg-gray-50 flex items-center justify-center"><i class="fas fa-qrcode mr-2"></i> QR Code</button>
-              </div>
-
-              <!-- UPI Icons -->
-              <div class="flex justify-center space-x-4 mt-4">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/PhonePe_Logo.svg" alt="PhonePe" class="h-8 w-auto">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Google_Pay_Logo.svg" alt="Google Pay" class="h-8 w-auto">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Paytm_Logo.png" alt="Paytm" class="h-8 w-auto">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/BHIM_logo.svg" alt="BHIM" class="h-8 w-auto">
-              </div>
-            </div>
-
-            <!-- Buy Me a Coffee -->
-            <div class="text-center mt-6">
-              <a href="https://www.buymeacoffee.com/yourusername" target="_blank">
-                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" class="h-12 mx-auto">
-              </a>
-              <p class="text-sm text-gray-600 mt-2">International users can donate here</p>
-            </div>
-
-            <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700">Proceed to Payment</button>
-          </form>
+            <nav id="main-nav" class="hidden md:block absolute md:static top-full left-0 right-0 bg-white md:bg-transparent shadow-lg md:shadow-none py-4 md:py-0 w-full md:w-auto">
+                <ul class="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0 text-center md:text-left">
+                    <li><a href="index.html#donate-form" class="block text-gray-600 hover:text-indigo-600 font-bold px-4 py-2 rounded-md bg-indigo-50 hover:bg-indigo-100 transition-colors">Donate</a></li>
+                    <li><a href="index.html#about" class="block text-gray-600 hover:text-indigo-600 nav-link py-2 px-4">About Us</a></li>
+                    <li><a href="index.html#why-donate" class="block text-gray-600 hover:text-indigo-600 nav-link py-2 px-4">Why Donate?</a></li>
+                    <li><a href="contact.html" class="block text-gray-600 hover:text-indigo-600 nav-link py-2 px-4">Contact</a></li>
+                </ul>
+            </nav>
         </div>
-      </div>
-    </section>
-  </main>
+    </header>
 
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-white py-10">
-    <div class="container-max-w grid md:grid-cols-4 gap-8 text-sm">
-      <div>
-        <img src="https://i.ibb.co/VWD3vh8S/20250605-175233.png" class="h-8 mb-2" alt="AgoraNet Logo">
-        <p>Empowering digital connections.</p>
-        <p class="mt-2">&copy; 2025 AgoraNet. All rights reserved.</p>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-3">Quick Links</h3>
-        <ul class="space-y-1">
-          <li><a href="#about" class="hover:text-indigo-400">About Us</a></li>
-          <li><a href="#why-donate" class="hover:text-indigo-400">Why Donate?</a></li>
-          <li><a href="#donate-form" class="hover:text-indigo-400">Donate</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-3">Legal</h3>
-        <ul class="space-y-1">
-          <li><a href="terms.html" class="hover:text-indigo-400">Terms & Conditions</a></li>
-          <li><a href="refund.html" class="hover:text-indigo-400">Refund Policy</a></li>
-          <li><a href="contact.html" class="hover:text-indigo-400">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-3">Contact</h3>
-        <p><i class="fas fa-phone-alt mr-2"></i> +91 9489588709</p>
-        <p class="mt-2"><i class="fas fa-envelope mr-2"></i> ThiruXD@gmail.com</p>
-        <div class="flex space-x-4 mt-3">
-          <a href="#"><i class="fab fa-facebook-f hover:text-blue-500"></i></a>
-          <a href="#"><i class="fab fa-twitter hover:text-blue-400"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in hover:text-blue-600"></i></a>
-          <a href="#"><i class="fab fa-instagram hover:text-pink-500"></i></a>
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section id="hero" class="bg-indigo-600 text-white py-20 px-4 text-center">
+            <div class="container-max-w">
+                <h1 class="text-4xl sm:text-5xl font-extrabold mb-4 leading-tight">Empowering Digital Connections</h1>
+                <p class="text-lg sm:text-xl mb-8 opacity-90">
+                    Support AgoraNet in creating open, accessible, and inclusive digital spaces for everyone.
+                </p>
+                <a href="#donate-form" class="inline-block bg-white text-indigo-700 px-8 py-3 rounded-full text-lg font-semibold hover:bg-indigo-100 transition-transform transform hover:scale-105 shadow-lg">
+                    Support Our Mission
+                </a>
+            </div>
+        </section>
+
+        <!-- Donation Form Section -->
+        <section id="donate-form" class="py-16 px-4 bg-white">
+            <div class="container-max-w">
+                <h2 class="text-3xl font-bold text-gray-900 text-center mb-8">Make Your Contribution</h2>
+                <p class="text-lg text-gray-700 text-center mb-8">Choose an amount below or enter a custom one. Every donation makes a difference.</p>
+
+                <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md mx-auto">
+                    <form id="donationForm" class="space-y-6">
+                        <div>
+                            <label for="amount" class="block text-sm font-medium text-gray-700 mb-1">Donation Amount (₹)</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                                <button type="button" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 donation-preset" data-amount="250">₹250</button>
+                                <button type="button" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 donation-preset" data-amount="500">₹500</button>
+                                <button type="button" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 donation-preset" data-amount="1000">₹1,000</button>
+                                <button type="button" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 donation-preset" data-amount="2500">₹2,500</button>
+                            </div>
+                            <input type="number" id="amount" name="amount" min="10" value="100" placeholder="Or enter custom amount" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                            <p class="text-xs text-gray-500 mt-1">Minimum donation: ₹10</p>
+                        </div>
+
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name (Optional)</label>
+                            <input type="text" id="name" name="name" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Your Email</label>
+                            <input type="email" id="email" name="email" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                        </div>
+
+                        <div class="flex items-center">
+                            <input id="recurring" name="recurring" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                            <label for="recurring" class="ml-2 block text-sm text-gray-900">Make this a monthly donation</label>
+                        </div>
+
+                        <!-- Payment Method Selection -->
+                        <div class="pt-4">
+                            <h3 class="text-lg font-medium text-gray-900 mb-3">Payment Method</h3>
+                            <div class="grid grid-cols-2 gap-3 mb-4">
+                                <button type="button" id="upiPaymentBtn" class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center">
+                                    <i class="fas fa-mobile-alt mr-2"></i>
+                                    <span>UPI Payment</span>
+                                </button>
+                                <button type="button" id="qrPaymentBtn" class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center">
+                                    <i class="fas fa-qrcode mr-2"></i>
+                                    <span>QR Code</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
+                            Proceed to Payment
+                        </button>
+                    </form>
+
+                    <!-- QR Code Modal -->
+                    <div id="qrCodeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                        <div class="bg-white p-6 rounded-xl max-w-sm mx-4 text-center">
+                            <h3 class="text-xl font-bold mb-4">Scan QR Code to Pay</h3>
+                            <div class="qr-code-container mb-4">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=yourname@bank&pn=AgoraNet&am=100&cu=INR" alt="UPI QR Code" class="mx-auto">
+                            </div>
+                            <p class="text-gray-600 mb-4">Scan with any UPI app</p>
+                            <div class="flex items-center justify-center space-x-2 mb-4">
+                                <span class="font-mono bg-gray-100 p-2 rounded">yourname@bank</span>
+                                <button id="copyUpiId" class="text-indigo-600 hover:text-indigo-800">
+                                    <i class="far fa-copy"></i>
+                                </button>
+                            </div>
+                            <button id="closeQrModal" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">Close</button>
+                        </div>
+                    </div>
+
+                    <div id="statusMessage" class="mt-6 text-center text-lg font-medium hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-16 px-4 bg-gray-50">
+            <div class="container-max-w text-center">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">About AgoraNet</h2>
+                <p class="text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto">
+                    AgoraNet is a non-profit initiative dedicated to fostering open and inclusive digital communication.
+                    We create accessible platforms and tools that empower individuals and communities
+                    to connect, share knowledge, and collaborate freely.
+                </p>
+            </div>
+        </section>
+
+        <!-- Why Donate Section -->
+        <section id="why-donate" class="py-16 px-4 bg-white">
+            <div class="container-max-w">
+                <h2 class="text-3xl font-bold text-gray-900 text-center mb-10">Why Your Donation Matters</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-indigo-600 mb-4"><i class="fas fa-code"></i></div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Develop New Features</h3>
+                        <p class="text-gray-700">Your contribution fuels the research and development of innovative tools and features.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-indigo-600 mb-4"><i class="fas fa-server"></i></div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Maintain Infrastructure</h3>
+                        <p class="text-gray-700">We rely on secure and robust servers to keep our platforms running smoothly 24/7.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-indigo-600 mb-4"><i class="fas fa-users"></i></div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Community Support</h3>
+                        <p class="text-gray-700">We provide free support and resources to help communities utilize our tools effectively.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-10 px-4">
+        <div class="container-max-w grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <a href="index.html" class="flex items-center space-x-2 mb-3">
+                    <img src="https://i.ibb.co/VWD3vh8S/20250605-175233.png" alt="AgoraNet Logo" class="h-8 w-8 rounded-full">
+                    <span class="text-xl font-bold">AgoraNet</span>
+                </a>
+                <p class="text-gray-400 text-sm">Empowering digital connections.</p>
+                <p class="text-gray-400 text-sm mt-2">&copy; 2025 AgoraNet. All rights reserved.</p>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="index.html#about" class="text-gray-400 hover:text-indigo-400">About Us</a></li>
+                    <li><a href="index.html#why-donate" class="text-gray-400 hover:text-indigo-400">Why Donate?</a></li>
+                    <li><a href="index.html#donate-form" class="text-gray-400 hover:text-indigo-400">Donate Now</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                <ul class="space-y-2">
+                    <li><a href="Terms-and-Conditions.html" class="text-gray-400 hover:text-indigo-400">Terms & Conditions</a></li>
+                    <li><a href="Refund-and-Cancellation-Policy.html" class="text-gray-400 hover:text-indigo-400">Refund Policy</a></li>
+                    <li><a href="contact.html" class="text-gray-400 hover:text-indigo-400">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                <p class="text-gray-400"><i class="fas fa-phone-alt mr-2"></i> +91 9489588709</p>
+                <p class="text-gray-400 mt-2"><i class="fas fa-envelope mr-2"></i> ThiruXD@gmail.com</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-pink-500"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
-  <!-- Scripts -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const menuBtn = document.getElementById("mobile-menu-button");
-      const nav = document.getElementById("main-nav");
-      menuBtn.addEventListener("click", () => nav.classList.toggle("hidden"));
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mainNav = document.getElementById('main-nav');
+            
+            mobileMenuButton.addEventListener('click', () => {
+                mainNav.classList.toggle('hidden');
+            });
 
-      const amountInput = document.getElementById("amount");
-      document.querySelectorAll(".donation-preset").forEach(btn => {
-        btn.addEventListener("click", () => amountInput.value = btn.dataset.amount);
-      });
-    });
-  </script>
+            // Donation amount presets
+            const amountInput = document.getElementById('amount');
+            document.querySelectorAll('.donation-preset').forEach(button => {
+                button.addEventListener('click', () => {
+                    amountInput.value = button.dataset.amount;
+                });
+            });
+
+            // UPI Payment Functionality
+            const upiPaymentBtn = document.getElementById('upiPaymentBtn');
+            const qrPaymentBtn = document.getElementById('qrPaymentBtn');
+            const qrCodeModal = document.getElementById('qrCodeModal');
+            const closeQrModal = document.getElementById('closeQrModal');
+            const copyUpiId = document.getElementById('copyUpiId');
+            const donationForm = document.getElementById('donationForm');
+            const statusMessage = document.getElementById('statusMessage');
+
+            // Check if user is on mobile
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+            // Generate UPI Payment Link
+            function generateUpiLink(amount, name = 'Anonymous') {
+                const tid = 'AGORA' + Date.now(); // Unique transaction ID
+                return `upi://pay?pa=yourname@bank&pn=AgoraNet&am=${amount}&cu=INR&tn=Donation to AgoraNet by ${encodeURIComponent(name)}&tid=${tid}`;
+            }
+
+            // UPI Payment Button
+            upiPaymentBtn.addEventListener('click', () => {
+                const amount = parseInt(amountInput.value);
+                const name = document.getElementById('name').value.trim() || 'Anonymous';
+                
+                if (amount < 10) {
+                    showStatus('Minimum donation is ₹10', 'error');
+                    return;
+                }
+
+                const upiLink = generateUpiLink(amount, name);
+                
+                if (isMobile) {
+                    window.location.href = upiLink;
+                    setTimeout(() => {
+                        if (!document.hidden) {
+                            showStatus('No UPI app detected. Please try QR code instead.', 'info');
+                        }
+                    }, 500);
+                } else {
+                    showStatus('Please use QR code payment on desktop', 'info');
+                }
+            });
+
+            // QR Code Payment Button
+            qrPaymentBtn.addEventListener('click', () => {
+                const amount = parseInt(amountInput.value);
+                if (amount < 10) {
+                    showStatus('Minimum donation is ₹10', 'error');
+                    return;
+                }
+                // Update QR code with current amount
+                document.querySelector('#qrCodeModal img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(generateUpiLink(amount))}`;
+                qrCodeModal.classList.remove('hidden');
+            });
+
+            // Close QR Modal
+            closeQrModal.addEventListener('click', () => {
+                qrCodeModal.classList.add('hidden');
+            });
+
+            // Copy UPI ID
+            copyUpiId.addEventListener('click', () => {
+                navigator.clipboard.writeText('yourname@bank')
+                    .then(() => {
+                        const originalIcon = copyUpiId.innerHTML;
+                        copyUpiId.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(() => {
+                            copyUpiId.innerHTML = originalIcon;
+                        }, 2000);
+                    });
+            });
+
+            // Form submission
+            donationForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                showStatus('Please select a payment method above', 'info');
+            });
+
+            // Show status message
+            function showStatus(message, type) {
+                statusMessage.textContent = message;
+                statusMessage.className = 'mt-6 text-center text-lg font-medium block';
+                
+                switch(type) {
+                    case 'error':
+                        statusMessage.classList.add('text-red-600');
+                        break;
+                    case 'success':
+                        statusMessage.classList.add('text-green-600');
+                        break;
+                    case 'info':
+                        statusMessage.classList.add('text-indigo-600');
+                        break;
+                }
+            }
+        });
+    </script>
 </body>
 </html>
