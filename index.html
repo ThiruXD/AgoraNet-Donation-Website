@@ -398,6 +398,10 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Telegram Bot Configuration
+            const TELEGRAM_BOT_TOKEN = '6213968825:AAGD9L7Jl9Ow_hxEOV64loSuyQkUVR_73p4'; // Replace with your bot token
+            const TELEGRAM_CHAT_ID = '-1002577520555'; // Replace with your channel ID (e.g., @yourchannel or -1001234567890)
+            
             // Mobile menu toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mainNav = document.getElementById('main-nav');
@@ -438,16 +442,120 @@
             // Check if user is on mobile
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-            // Generate UPI Payment Link with user details
-            function generateUpiLink(amount, name, email, message = '') {
-                const tid = 'AGORA' + Date.now(); // Unique transaction ID
-                let transactionNote = `Donation to AgoraNet by ${encodeURIComponent(name)} (${encodeURIComponent(email)})`;
+            // Generate unique 5-digit ID
+            function generateUniqueId() {
+                const usedIds = JSON.parse(localStorage.getItem('usedDonationIds') || '[]');
+                let newId;
                 
-                if (message.trim()) {
-                    transactionNote += ` - Message: ${encodeURIComponent(message.trim())}`;
-                }
+                do {
+                    newId = Math.floor(10000 + Math.random() * 90000).toString();
+                } while (usedIds.includes(newId));
+                
+                usedIds.push(newId);
+                localStorage.setItem('usedDonationIds', JSON.stringify(usedIds));
+                
+                return newId;
+            }
+
+            // Generate UPI Payment Link with unique ID
+            function generateUpiLink(amount, name, uniqueId) {
+                const tid = 'AGORA' + Date.now(); // Unique transaction ID
+                const transactionNote = `Donation to AgoraNet by (#${uniqueId}) ${encodeURIComponent(name)}`;
                 
                 return `upi://pay?pa=ThiruXD@ptyes&pn=AgoraNet&am=${amount}&cu=INR&tn=${transactionNote}&tid=${tid}`;
+            }
+
+            // Send donation details to Telegram
+            async function sendToTelegram(donationData) {
+                const { uniqueId, name, email, amount, message, isRecurring } = donationData;
+                
+                // Create aesthetic message
+                const telegramMessage = `
+🎉 *NEW DONATION RECEIVED* 🎉
+
+💰 *Amount:* ₹${amount.toLocaleString()}${isRecurring ? ' (Monthly)' : ''}
+🆔 *ID:* #${uniqueId}
+👤 *Name:* ${name}
+📧 *Email:* ${email}
+${message ? `💬 *Message:* ${message}` : ''}
+
+📅 *Date:* ${new Date().toLocaleString('en-IN', { 
+    timeZone: 'Asia/Kolkata',
+    day: '2-digit',
+    month: '2-digit', 
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+})}
+
+🔍 *Status:* ⏳ Pending Verification
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+💙 Thank you for supporting AgoraNet!
+                `.trim();
+
+                try {
+                    const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            chat_id: TELEGRAM_CHAT_ID,
+                            text: telegramMessage,
+                            parse_mode: 'Markdown',
+                            disable_web_page_preview: true
+                        })
+                    });
+
+                    if (response.ok) {
+                        console.log('Donation details sent to Telegram successfully');
+                        return true;
+                    } else {
+                        console.error('Failed to send to Telegram:', await response.text());
+                        return false;
+                    }
+                } catch (error) {
+                    console.error('Error sending to Telegram:', error);
+                    return false;
+                }
+            }
+
+            // Send verification update to Telegram
+            async function sendVerificationUpdate(uniqueId, isVerified) {
+                const status = isVerified ? '✅ VERIFIED' : '❌ NOT VERIFIED';
+                const emoji = isVerified ? '✅' : '❌';
+                
+                const updateMessage = `
+${emoji} *DONATION STATUS UPDATE*
+
+🆔 *ID:* #${uniqueId}
+🔍 *Status:* ${status}
+📅 *Updated:* ${new Date().toLocaleString('en-IN', { 
+    timeZone: 'Asia/Kolkata',
+    day: '2-digit',
+    month: '2-digit', 
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+})}
+                `.trim();
+
+                try {
+                    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            chat_id: TELEGRAM_CHAT_ID,
+                            text: updateMessage,
+                            parse_mode: 'Markdown'
+                        })
+                    });
+                } catch (error) {
+                    console.error('Error sending verification update:', error);
+                }
             }
 
             // Show processing animation
@@ -470,7 +578,7 @@
             }
 
             // Show appreciation animation
-            function showAppreciationAnimation(amount) {
+            function showAppreciationAnimation(amount, uniqueId) {
                 const animationContainer = document.createElement('div');
                 animationContainer.className = 'fixed inset-0 flex items-center justify-center z-50 pointer-events-none';
                 
@@ -481,6 +589,7 @@
                     <div class="animate-bounce text-4xl font-bold bg-white p-6 rounded-full shadow-lg">
                         <div class="text-5xl mb-2">${emoji}</div>
                         <div class="text-coffee-600">${message}</div>
+                        <div class="text-sm text-gray-600 mt-2">ID: #${uniqueId}</div>
                     </div>
                 `;
                 document.body.appendChild(animationContainer);
@@ -536,7 +645,7 @@
             });
 
             // UPI Payment Button
-            upiPaymentBtn.addEventListener('click', () => {
+            upiPaymentBtn.addEventListener('click', async () => {
                 const amount = parseInt(amountInput.value);
                 const name = document.getElementById('name').value.trim();
                 const email = document.getElementById('email').value.trim();
@@ -549,21 +658,40 @@
                 }
 
                 const processingDiv = showProcessingAnimation();
-                const upiLink = generateUpiLink(amount, name, email, message);
+                const uniqueId = generateUniqueId();
+                const upiLink = generateUpiLink(amount, name, uniqueId);
+                
+                // Prepare donation data
+                const donationData = {
+                    uniqueId,
+                    name,
+                    email,
+                    amount,
+                    message,
+                    isRecurring
+                };
+                
+                // Send to Telegram
+                const telegramSent = await sendToTelegram(donationData);
                 
                 setTimeout(() => {
                     processingDiv.remove();
                     
                     if (isMobile) {
-                        // In a real app, you would process the payment here
-                        showStatus(`Thank you ${name} for your ${isRecurring ? 'monthly ' : ''}donation of ₹${amount} via UPI!`, 'success');
-                        showAppreciationAnimation(amount);
+                        showStatus(`Thank you ${name}! Your donation ID is #${uniqueId}. ${telegramSent ? 'Details sent to our team.' : 'Please contact us with your ID.'}`, 'success');
+                        showAppreciationAnimation(amount, uniqueId);
                         
                         if (!isRecurring) {
                             donationForm.reset();
                             amountInput.value = 100;
                             paymentMethods.classList.add('hidden');
                         }
+                        
+                        // Simulate verification after 5 seconds (for demo)
+                        setTimeout(() => {
+                            const isVerified = Math.random() > 0.3; // 70% chance of verification
+                            sendVerificationUpdate(uniqueId, isVerified);
+                        }, 5000);
                         
                         window.location.href = upiLink;
                     } else {
@@ -573,7 +701,7 @@
             });
 
             // QR Code Payment Button
-            qrPaymentBtn.addEventListener('click', () => {
+            qrPaymentBtn.addEventListener('click', async () => {
                 const amount = parseInt(amountInput.value);
                 const name = document.getElementById('name').value.trim();
                 const email = document.getElementById('email').value.trim();
@@ -585,14 +713,34 @@
                     return;
                 }
                 
+                const uniqueId = generateUniqueId();
+                const upiLink = generateUpiLink(amount, name, uniqueId);
+                
                 // Update QR code with current amount and user details
-                const upiLink = generateUpiLink(amount, name, email, message);
                 document.querySelector('#qrCodeModal img').src = 
                     `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiLink)}`;
                 qrCodeModal.classList.remove('hidden');
                 
-                // In a real app, you would track this selection
-                console.log('User selected QR payment:', { amount, name, email, message });
+                // Prepare donation data
+                const donationData = {
+                    uniqueId,
+                    name,
+                    email,
+                    amount,
+                    message,
+                    isRecurring
+                };
+                
+                // Send to Telegram
+                const telegramSent = await sendToTelegram(donationData);
+                
+                showStatus(`Your donation ID is #${uniqueId}. ${telegramSent ? 'Details sent to our team.' : 'Please contact us with your ID.'}`, 'info');
+                
+                // Simulate verification after 5 seconds (for demo)
+                setTimeout(() => {
+                    const isVerified = Math.random() > 0.3; // 70% chance of verification
+                    sendVerificationUpdate(uniqueId, isVerified);
+                }, 5000);
             });
 
             // Close QR Modal
