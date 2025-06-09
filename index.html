@@ -403,12 +403,13 @@
             const TELEGRAM_CHAT_ID = '-1002577520555';
             const ENABLE_SYSTEM_LOGS = false; // Set to true to enable system logs, false to disable
             
-            // Professional Donation System
+            // Professional Donation System with Interactive Buttons
             class DonationSystem {
                 constructor() {
                     this.sessionId = this.generateSessionId();
                     this.pendingDonations = new Map(); // Track pending donations
                     this.initializeErrorHandling();
+                    this.setupWebhookListener(); // For button callbacks
                 }
 
                 generateSessionId() {
@@ -519,10 +520,13 @@
                     return `upi://pay?pa=ThiruXD@ptyes&pn=AgoraNet&am=${amount}&cu=INR&tn=${transactionNote}&tid=${tid}`;
                 }
 
+                // Send donation notification with interactive buttons
                 async sendDonationNotification(donationData) {
                     const { uniqueId, name, email, amount, message, isRecurring } = donationData;
                     
                     try {
+                        console.log('Sending donation notification with buttons:', donationData);
+                        
                         const donationMessage = 
 `🎉 NEW DONATION INITIATED 🎉
 
@@ -541,10 +545,32 @@
 })}
 
 🔍 Status: ⏳ Payment Pending
-💡 Note: Waiting for payment confirmation
+💡 Note: Waiting for manual verification
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 💙 Thank you for supporting AgoraNet!`;
+
+                        // Create inline keyboard with verification buttons
+                        const inlineKeyboard = {
+                            inline_keyboard: [
+                                [
+                                    {
+                                        text: "✅ Verified",
+                                        callback_data: `verify_${uniqueId}`
+                                    },
+                                    {
+                                        text: "❌ Not Verified",
+                                        callback_data: `reject_${uniqueId}`
+                                    }
+                                ],
+                                [
+                                    {
+                                        text: "🗑️ Delete",
+                                        callback_data: `delete_${uniqueId}`
+                                    }
+                                ]
+                            ]
+                        };
 
                         const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
                             method: 'POST',
@@ -552,12 +578,22 @@
                             body: JSON.stringify({
                                 chat_id: TELEGRAM_CHAT_ID,
                                 text: donationMessage,
+                                reply_markup: inlineKeyboard,
                                 disable_web_page_preview: true
                             })
                         });
 
                         if (response.ok) {
-                            console.log('Donation notification sent successfully');
+                            const responseData = await response.json();
+                            console.log('Donation notification sent successfully with buttons');
+                            
+                            // Store message ID for later editing
+                            this.pendingDonations.set(uniqueId, {
+                                ...donationData,
+                                messageId: responseData.result.message_id,
+                                status: 'pending'
+                            });
+                            
                             return true;
                         } else {
                             const errorText = await response.text();
@@ -570,17 +606,90 @@
                     }
                 }
 
-                async sendPaymentConfirmation(uniqueId, isVerified = false) {
-                    try {
-                        const status = isVerified ? '✅ PAYMENT VERIFIED' : '❌ PAYMENT FAILED';
-                        const emoji = isVerified ? '✅' : '❌';
-                        
-                        const confirmationMessage = 
-`${emoji} PAYMENT STATUS UPDATE
+                // Setup webhook listener for button callbacks
+                setupWebhookListener() {
+                    // In a real application, you would set up a webhook endpoint
+                    // For demonstration, we'll simulate button responses
+                    console.log('Webhook listener setup for button callbacks');
+                    
+                    // Simulate webhook responses for demo
+                    this.simulateButtonResponses();
+                }
 
-🆔 ID: #${uniqueId}
-🔍 Status: ${status}
-📅 Updated: ${new Date().toLocaleString('en-IN', { 
+                // Simulate button responses (in real app, this would be webhook-based)
+                simulateButtonResponses() {
+                    // This simulates admin clicking buttons after some time
+                    setTimeout(() => {
+                        this.pendingDonations.forEach((donation, uniqueId) => {
+                            if (donation.status === 'pending') {
+                                // Simulate random admin action for demo
+                                const actions = ['verify', 'reject'];
+                                const randomAction = actions[Math.floor(Math.random() * actions.length)];
+                                
+                                console.log(`Simulating admin ${randomAction} for donation ${uniqueId}`);
+                                this.handleButtonCallback(randomAction, uniqueId);
+                            }
+                        });
+                    }, 15000); // 15 seconds delay for demo
+                }
+
+                // Handle button callback responses
+                async handleButtonCallback(action, uniqueId) {
+                    const donation = this.pendingDonations.get(uniqueId);
+                    if (!donation) {
+                        console.error('Donation not found for ID:', uniqueId);
+                        return;
+                    }
+
+                    try {
+                        let updatedMessage = '';
+                        let newStatus = '';
+
+                        switch (action) {
+                            case 'verify':
+                                newStatus = 'verified';
+                                updatedMessage = this.createVerifiedMessage(donation);
+                                break;
+                            case 'reject':
+                                newStatus = 'rejected';
+                                updatedMessage = this.createRejectedMessage(donation);
+                                break;
+                            case 'delete':
+                                await this.deleteMessage(donation.messageId);
+                                this.pendingDonations.delete(uniqueId);
+                                console.log(`Donation ${uniqueId} deleted`);
+                                return;
+                        }
+
+                        // Update the message
+                        await this.editMessage(donation.messageId, updatedMessage);
+                        
+                        // Update donation status
+                        donation.status = newStatus;
+                        donation.processedAt = Date.now();
+                        
+                        console.log(`Donation ${uniqueId} ${action}ed successfully`);
+
+                        // Remove from pending if processed
+                        if (newStatus !== 'pending') {
+                            this.pendingDonations.delete(uniqueId);
+                        }
+
+                    } catch (error) {
+                        console.error(`Error handling ${action} for donation ${uniqueId}:`, error);
+                    }
+                }
+
+                // Create verified message
+                createVerifiedMessage(donation) {
+                    return `✅ DONATION VERIFIED ✅
+
+💰 Amount: ₹${donation.amount.toLocaleString()}${donation.isRecurring ? ' (Monthly)' : ''}
+🆔 ID: #${donation.uniqueId}
+👤 Name: ${donation.name}
+📧 Email: ${donation.email}${donation.message ? `\n💬 Message: ${donation.message}` : ''}
+
+📅 Initiated: ${new Date(donation.initiatedAt || Date.now()).toLocaleString('en-IN', { 
     timeZone: 'Asia/Kolkata',
     day: '2-digit',
     month: '2-digit', 
@@ -589,35 +698,106 @@
     minute: '2-digit'
 })}
 
-${isVerified ? '🎉 Payment successfully received!' : '⚠️ Payment verification failed or cancelled'}`;
+✅ Verified: ${new Date().toLocaleString('en-IN', { 
+    timeZone: 'Asia/Kolkata',
+    day: '2-digit',
+    month: '2-digit', 
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+})}
 
-                        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+🎉 Status: PAYMENT CONFIRMED
+💙 Thank you for supporting AgoraNet!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+                }
+
+                // Create rejected message
+                createRejectedMessage(donation) {
+                    return `❌ DONATION NOT VERIFIED ❌
+
+💰 Amount: ₹${donation.amount.toLocaleString()}${donation.isRecurring ? ' (Monthly)' : ''}
+🆔 ID: #${donation.uniqueId}
+👤 Name: ${donation.name}
+📧 Email: ${donation.email}${donation.message ? `\n💬 Message: ${donation.message}` : ''}
+
+📅 Initiated: ${new Date(donation.initiatedAt || Date.now()).toLocaleString('en-IN', { 
+    timeZone: 'Asia/Kolkata',
+    day: '2-digit',
+    month: '2-digit', 
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+})}
+
+❌ Rejected: ${new Date().toLocaleString('en-IN', { 
+    timeZone: 'Asia/Kolkata',
+    day: '2-digit',
+    month: '2-digit', 
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+})}
+
+⚠️ Status: PAYMENT NOT VERIFIED
+💡 Note: Please contact support if this is an error
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+                }
+
+                // Edit message
+                async editMessage(messageId, newText) {
+                    try {
+                        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/editMessageText`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
                                 chat_id: TELEGRAM_CHAT_ID,
-                                text: confirmationMessage
+                                message_id: messageId,
+                                text: newText,
+                                disable_web_page_preview: true
                             })
                         });
 
-                        console.log('Payment confirmation sent');
+                        if (!response.ok) {
+                            const errorText = await response.text();
+                            console.error('Failed to edit message:', errorText);
+                        }
                     } catch (error) {
-                        console.error('Error sending payment confirmation:', error);
+                        console.error('Error editing message:', error);
                     }
                 }
 
-                // Professional payment initiation - doesn't assume payment is complete
+                // Delete message
+                async deleteMessage(messageId) {
+                    try {
+                        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/deleteMessage`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                chat_id: TELEGRAM_CHAT_ID,
+                                message_id: messageId
+                            })
+                        });
+
+                        if (!response.ok) {
+                            const errorText = await response.text();
+                            console.error('Failed to delete message:', errorText);
+                        }
+                    } catch (error) {
+                        console.error('Error deleting message:', error);
+                    }
+                }
+
+                // Professional payment initiation
                 async initiateDonation(donationData) {
                     const { uniqueId } = donationData;
                     
-                    // Store donation as pending
-                    this.pendingDonations.set(uniqueId, {
-                        ...donationData,
-                        status: 'pending',
-                        initiatedAt: Date.now()
-                    });
-
-                    // Send notification that donation was initiated (not completed)
+                    // Add timestamp
+                    donationData.initiatedAt = Date.now();
+                    
+                    // Send notification with interactive buttons
                     const notificationSent = await this.sendDonationNotification(donationData);
                     
                     // Log system info only if enabled
@@ -625,31 +805,12 @@ ${isVerified ? '🎉 Payment successfully received!' : '⚠️ Payment verificat
                         this.logSystemInfo('Donation Initiated', 'Success', {
                             uniqueId,
                             amount: donationData.amount,
-                            notificationSent
+                            notificationSent,
+                            buttonsEnabled: true
                         });
                     }
 
                     return notificationSent;
-                }
-
-                // Simulate payment verification (in real app, this would be webhook-based)
-                simulatePaymentVerification(uniqueId) {
-                    setTimeout(() => {
-                        const donation = this.pendingDonations.get(uniqueId);
-                        if (donation) {
-                            // 70% success rate for demo
-                            const isVerified = Math.random() > 0.3;
-                            
-                            donation.status = isVerified ? 'verified' : 'failed';
-                            donation.verifiedAt = Date.now();
-                            
-                            this.sendPaymentConfirmation(uniqueId, isVerified);
-                            
-                            if (isVerified) {
-                                this.pendingDonations.delete(uniqueId);
-                            }
-                        }
-                    }, 10000); // 10 seconds delay to simulate real payment processing
                 }
             }
 
@@ -660,7 +821,8 @@ ${isVerified ? '🎉 Payment successfully received!' : '⚠️ Payment verificat
             if (ENABLE_SYSTEM_LOGS) {
                 donationSystem.logSystemInfo('System Startup', 'Success', {
                     page: 'Donation Page',
-                    systemLogsEnabled: ENABLE_SYSTEM_LOGS
+                    systemLogsEnabled: ENABLE_SYSTEM_LOGS,
+                    interactiveButtons: true
                 });
             }
             
@@ -808,7 +970,7 @@ ${isVerified ? '🎉 Payment successfully received!' : '⚠️ Payment verificat
                         isRecurring
                     };
                     
-                    // Initiate donation (send notification)
+                    // Initiate donation (send notification with buttons)
                     const notificationSent = await donationSystem.initiateDonation(donationData);
                     
                     // Generate UPI link
@@ -818,15 +980,12 @@ ${isVerified ? '🎉 Payment successfully received!' : '⚠️ Payment verificat
                         processingDiv.remove();
                         
                         if (isMobile) {
-                            showStatus(`Donation initiated! ID: #${uniqueId}. ${notificationSent ? 'Redirecting to payment...' : 'Please contact us with your ID.'}`, 'info');
-                            
-                            // Start payment verification simulation
-                            donationSystem.simulatePaymentVerification(uniqueId);
+                            showStatus(`Donation initiated! ID: #${uniqueId}. ${notificationSent ? 'Admin will verify payment manually. Redirecting...' : 'Please contact us with your ID.'}`, 'info');
                             
                             // Redirect to UPI app
                             setTimeout(() => {
                                 window.location.href = upiLink;
-                            }, 2000);
+                            }, 3000);
                             
                         } else {
                             showStatus('Please use QR code payment on desktop', 'warning');
@@ -865,7 +1024,7 @@ ${isVerified ? '🎉 Payment successfully received!' : '⚠️ Payment verificat
                         isRecurring
                     };
                     
-                    // Initiate donation (send notification)
+                    // Initiate donation (send notification with buttons)
                     const notificationSent = await donationSystem.initiateDonation(donationData);
                     
                     // Generate UPI link and QR code
@@ -875,10 +1034,7 @@ ${isVerified ? '🎉 Payment successfully received!' : '⚠️ Payment verificat
                     
                     qrCodeModal.classList.remove('hidden');
                     
-                    showStatus(`Donation initiated! ID: #${uniqueId}. ${notificationSent ? 'Scan QR code to complete payment.' : 'Please contact us with your ID.'}`, 'info');
-                    
-                    // Start payment verification simulation
-                    donationSystem.simulatePaymentVerification(uniqueId);
+                    showStatus(`Donation initiated! ID: #${uniqueId}. ${notificationSent ? 'Admin will verify payment manually.' : 'Please contact us with your ID.'}`, 'info');
                     
                 } catch (error) {
                     console.error('QR Payment Error:', error);
