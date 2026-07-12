@@ -158,6 +158,6 @@ This project is open-source and available for modification and personal use.
 
 ## 👤 Author
 
-[ThiruXD](https://github.com/THiruXD) & [KishoreDxD](https://github.com/K4isszDev) 
+[ThiruXD](https://github.com/THiruXD) & [MKishoreDev](https://github.com/MKishoreDev) 
 
 ---
